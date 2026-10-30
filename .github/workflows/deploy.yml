@@ -44,14 +44,6 @@ jobs:
           format: "markdown"
           args: ". --verbose"
 
-      - name: Create Issue From File
-        if: steps.lychee.outputs.exit_code != 0
-        uses: peter-evans/create-issue-from-file@v5
-        with:
-          title: Link Checker Report
-          content-filepath: ./lychee/out.md
-          labels: report, automated issue
-
   build:
     needs: [lint, check-links]
     runs-on: ubuntu-latest
