@@ -42,7 +42,7 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           format: "markdown"
-          args: ". --verbose --offline dist/"
+          args: ". --verbose --offline"
 
   build:
     needs: [lint, check-links]
