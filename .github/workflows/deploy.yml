@@ -19,17 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
+      - name: Runtime Setup
+        uses: pnpm/setup@v3
         with:
-          version: 10
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+          version: 12
+          runtime: node@26
+          cache: true
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
@@ -39,7 +36,7 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v2
@@ -52,18 +49,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
+      - name: Runtime Setup
+        uses: pnpm/setup@v3
         with:
-          version: 10
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+          version: 12
+          runtime: node@26
+          cache: true
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -72,7 +65,7 @@ jobs:
         run: pnpm build
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -85,4 +78,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
