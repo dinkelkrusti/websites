@@ -1,0 +1,33 @@
+---
+interface Props {
+  kicker: string;
+  heading: string;
+  id?: string;
+}
+const { kicker, heading, id } = Astro.props;
+---
+
+<div class="section-heading">
+  <p class="kicker">{kicker}</p>
+  <h2 id={id}>{heading}</h2>
+  <hr class="hairline" />
+</div>
+
+<style>
+  .section-heading {
+    margin-block-end: var(--space-5);
+  }
+  .kicker {
+    font-size: var(--fs-small);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-block-end: var(--space-2);
+  }
+  .hairline {
+    border: none;
+    border-block-start: var(--border-hairline);
+    width: 4rem;
+    margin-block-start: var(--space-4);
+  }
+</style>

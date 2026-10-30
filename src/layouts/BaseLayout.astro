@@ -1,0 +1,64 @@
+---
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/inter";
+import "../styles/tokens.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { getLangFromUrl } from "../i18n/utils";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Lang;
+}
+
+const { title, description } = Astro.props;
+const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const other: Lang = lang === "de" ? "en" : "de";
+// [temp] string surgery on pathname — fine at 5 pages, revisit if slugs get complex
+const alternatePath = Astro.url.pathname.replace(
+  /^\/(de|en)(?=\/|$)/,
+  `/${other}`,
+);
+const site = Astro.site ?? new URL("http://localhost:4321");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="alternate"
+      hreflang={lang}
+      href={new URL(Astro.url.pathname, site)}
+    />
+    <link
+      rel="alternate"
+      hreflang={other}
+      href={new URL(alternatePath, site)}
+    />
+    <link rel="alternate" hreflang="x-default" href={new URL("/", site)} />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <!-- [temp] add public/og.jpg (1200x630) before launch, or remove this line until then -->
+    <meta property="og:image" content="/og.jpg" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      {t("skip")}
+    </a>
+    <Header lang={lang} pathname={Astro.url.pathname} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

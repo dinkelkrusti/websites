@@ -1,0 +1,60 @@
+---
+interface Props {
+  variant?: "primary" | "secondary";
+  href?: string;
+  type?: "button" | "submit";
+  class?: string;
+}
+const {
+  variant = "primary",
+  href,
+  type = "button",
+  class: cls,
+  ...rest
+} = Astro.props;
+const Tag = href ? "a" : "button";
+---
+
+<Tag
+  class:list={["btn", `btn--${variant}`, cls]}
+  {...(href ? { href } : { type })}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px; /* touch floor, 3.3 */
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans),sans-serif;
+    font-size: var(--fs-body);
+    text-decoration: none;
+    border: var(--border-hairline);
+    cursor: pointer;
+    transition:
+      background var(--transition),
+      color var(--transition);
+  }
+  .btn--primary {
+    background: var(--color-gold);
+    color: var(--color-void);
+    border-color: transparent;
+  }
+  .btn--primary:hover {
+    background: var(--color-gold-bright);
+    color: var(--color-void);
+  }
+  .btn--secondary {
+    background: transparent;
+    color: var(--color-gold);
+  }
+  .btn--secondary:hover {
+    background: var(--color-surface-gold);
+    color: var(--color-gold-bright);
+  }
+</style>

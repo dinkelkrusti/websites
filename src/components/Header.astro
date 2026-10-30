@@ -1,0 +1,241 @@
+---
+import { useTranslations, type Lang, type UiKey } from "../i18n/ui";
+import {
+  pages,
+  pageFromPath,
+  localizedPath,
+  switchLangPath,
+} from "../i18n/utils";
+
+interface Props {
+  lang: Lang;
+  pathname: string;
+}
+const { lang, pathname } = Astro.props;
+const t = useTranslations(lang);
+const current = pageFromPath(pathname, lang);
+const navKey = (page: string) => `nav.${page}` as UiKey;
+const otherLang: Lang = lang === "de" ? "en" : "de";
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="wordmark" href={localizedPath(lang, "home")}>
+      ex nihilo
+    </a>
+
+    <nav class="desktop-nav" aria-label={t("nav.main")}>
+      <ul>
+        {pages.map((page) => (
+          <li>
+            <a
+              href={localizedPath(lang, page)}
+              aria-current={current === page ? "page" : undefined}
+            >
+              {t(navKey(page))}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a
+        class="lang-switch"
+        href={switchLangPath(lang, current)}
+        hreflang={otherLang}
+      >
+        {otherLang === "en" ? "EN" : "DE"}
+      </a>
+    </nav>
+
+    <button
+      class="burger"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="visually-hidden">{t("nav.menu")}</span>
+      <span class="burger-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <dialog id="mobile-nav" class="drawer">
+    <nav aria-label={t("nav.main")}>
+      <ul>
+        {pages.map((page) => (
+          <li>
+            <a
+              href={localizedPath(lang, page)}
+              aria-current={current === page ? "page" : undefined}
+            >
+              {t(navKey(page))}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a
+        class="lang-switch"
+        href={switchLangPath(lang, current)}
+        hreflang={otherLang}
+      >
+        {otherLang === "en" ? "EN" : "DE"}
+      </a>
+    </nav>
+  </dialog>
+</header>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>(".burger");
+  const drawer = document.querySelector<HTMLDialogElement>("#mobile-nav");
+  burger?.addEventListener("click", () => {
+    drawer?.showModal();
+    burger.setAttribute("aria-expanded", "true");
+  });
+  drawer?.addEventListener("close", () => {
+    burger?.setAttribute("aria-expanded", "false");
+    burger?.focus();
+  });
+  // Overlay click closes (target is the dialog itself, not its content)
+  drawer?.addEventListener("click", (e) => {
+    if (e.target === drawer) drawer.close();
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-void) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-block-end: var(--border-hairline);
+  }
+  .header-inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .wordmark {
+    font-family: var(--font-serif),serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    letter-spacing: 0.08em;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+    }
+    .burger {
+      display: none;
+    }
+  }
+  .desktop-nav ul {
+    display: flex;
+    gap: var(--space-5);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .desktop-nav ul a {
+    color: var(--color-text-soft);
+    text-decoration: none;
+    padding-block: var(--space-3);
+    position: relative;
+  }
+  .desktop-nav ul a:hover {
+    color: var(--color-ink);
+  }
+  .desktop-nav ul a[aria-current="page"] {
+    color: var(--color-ink);
+  }
+  .desktop-nav ul a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-block-end: 1px solid var(--color-gold);
+  }
+  .lang-switch {
+    color: var(--color-gold);
+    text-decoration: none;
+    font-size: var(--fs-small);
+    letter-spacing: 0.1em;
+  }
+  .burger {
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+  }
+  .burger-icon,
+  .burger-icon::before,
+  .burger-icon::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-ink);
+    position: absolute;
+    inset-inline-start: 11px;
+    content: "";
+  }
+  .burger-icon {
+    top: 21px;
+  }
+  .burger-icon::before {
+    top: -7px;
+  }
+  .burger-icon::after {
+    top: 7px;
+  }
+  .drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(20rem, 85vw);
+    height: 100svh;
+    max-height: none;
+    max-width: none;
+    margin: 0;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border: none;
+    border-inline-start: var(--border-hairline);
+    padding: var(--space-6) var(--space-5);
+  }
+  .drawer::backdrop {
+    background: rgb(0 0 0 / 0.6);
+  }
+  .drawer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+    display: grid;
+    gap: var(--space-2);
+  }
+  .drawer a {
+    display: block;
+    min-height: 48px;
+    padding: var(--space-3) 0;
+    color: var(--color-ink);
+    text-decoration: none;
+    font-size: 1.125rem;
+  }
+  .drawer a[aria-current="page"] {
+    color: var(--color-gold-bright);
+  }
+  .drawer .lang-switch {
+    display: inline-block;
+    padding-block: var(--space-3);
+  }
+</style>

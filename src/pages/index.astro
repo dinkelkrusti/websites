@@ -1,16 +1,23 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import SectionHeading from "../components/SectionHeading.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<BaseLayout
+  title="ex nihilo — Duo"
+  description="ex nihilo — klassisches Duo. [temp] Testseite für 6.1."
+>
+  <section style="padding-block: var(--space-section);">
+    <SectionHeading kicker="Scaffold" heading="Layout läuft" id="test" />
+    <p>Alles da: Tokens, Typografie, Header mit Drawer, Footer, Buttons.</p>
+    <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+      <Button href="#" variant="primary">
+        Gold
+      </Button>
+      <Button href="#" variant="secondary">
+        Ghost
+      </Button>
+    </div>
+  </section>
+</BaseLayout>

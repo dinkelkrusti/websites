@@ -1,0 +1,84 @@
+---
+import { useTranslations, type Lang, type UiKey } from "../i18n/ui";
+import { pages, localizedPath } from "../i18n/utils";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const navKey = (page: string) => `nav.${page}` as UiKey;
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav aria-label={t("nav.main")}>
+      <ul>
+        {pages.map((page) => (
+          <li>
+            <a href={localizedPath(lang, page)}>{t(navKey(page))}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div>
+      <h3>{t("footer.legal")}</h3>
+      <ul>
+        <li>
+          <a href="/de/impressum/">{t("footer.impressum")}</a>
+        </li>
+        <li>
+          <a href="/de/datenschutz/">{t("footer.datenschutz")}</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3>{t("footer.contact")}</h3>
+      <!-- [temp] real address comes with 5.1 Impressum work -->
+      <p>
+        <a href="mailto:kontakt@ex-nihilo.example">kontakt@ex-nihilo.example</a>
+      </p>
+    </div>
+  </div>
+  <p class="copyright">{t("footer.copyright")}</p>
+</footer>
+
+<style>
+  .site-footer {
+    margin-block-start: var(--space-section);
+    border-block-start: var(--border-hairline);
+  }
+  .footer-inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: var(--space-6) var(--space-4);
+    display: grid;
+    gap: var(--space-5);
+  }
+  @media (min-width: 1024px) {
+    .footer-inner {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .footer-inner ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .footer-inner a {
+    color: var(--color-text-soft);
+    text-decoration: none;
+  }
+  .footer-inner a:hover {
+    color: var(--color-gold-bright);
+  }
+  .copyright {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: var(--space-4);
+    color: var(--color-text-soft);
+    font-size: var(--fs-small);
+  }
+</style>
