@@ -10,14 +10,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "astro:check": "astro check",
     "lint": "eslint .",
-    "format:fix": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:read": "prettier --check .",
+    "format:write": "prettier --write ."
   },
   "dependencies": {
     "astro": "^7.4.4"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.13.0",
     "eslint-config-prettier": "^10.1.8",

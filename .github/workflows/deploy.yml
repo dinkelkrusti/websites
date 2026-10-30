@@ -33,7 +33,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
-      - run: pnpm format:check
+      - run: pnpm format:read
+      - run: pnpm astro:check --minimumFailingSeverity warning
 
   build:
     needs: lint
