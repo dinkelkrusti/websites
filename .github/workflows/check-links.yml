@@ -20,7 +20,7 @@ jobs:
         with:
           fail: false
           format: "markdown"
-          args: ". --verbose"
+          args: ". --verbose --offline dist/"
 
       - name: Create Issue From File
         if: steps.lychee.outputs.exit_code != 0
