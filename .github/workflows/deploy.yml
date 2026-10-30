@@ -36,8 +36,19 @@ jobs:
       - run: pnpm format:read
       - run: pnpm astro:check --minimumFailingSeverity warning
 
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          format: "markdown"
+          args: ". --verbose"
+
   build:
-    needs: lint
+    needs: [lint, check-links]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

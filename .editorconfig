@@ -1,0 +1,22 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 80
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.astro]
+tab_width = 2
+
+[*.{js,ts,jsx,tsx}]
+tab_width = 2
+
+[*.{json,css,scss,html,yaml,yml}]
+tab_width = 2

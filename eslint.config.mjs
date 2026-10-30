@@ -14,7 +14,7 @@ export default defineConfig(
       js.configs.recommended,
       tseslint.configs.recommended,
       astro.configs.recommended,
-      astro.configs["jsx-a11y-recommended"],
+      astro.configs["jsx-a11y-strict"],
     ],
   },
 
