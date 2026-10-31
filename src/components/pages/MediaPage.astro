@@ -32,6 +32,8 @@ const videos = [
           src={photo.data.image}
           formats={["avif", "webp"]}
           alt={photo.data.alt}
+          width={photo.data.image.width}
+          height={photo.data.image.height}
           widths={[480, 960, 1440]}
           sizes="(max-width: 768px) 45vw, (max-width: 1024px) 33vw, 25vw"
           loading="lazy"
@@ -71,6 +73,11 @@ const videos = [
     font-size: var(--fs-small);
     color: var(--color-text-soft);
     margin-block-start: var(--space-2);
+  }
+  .gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
   }
   .videos {
     display: grid;
