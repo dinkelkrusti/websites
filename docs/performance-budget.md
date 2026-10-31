@@ -5,22 +5,22 @@ third-party requests only after YouTube opt-in click.
 
 ## Budgets (per page, built output, measured on dist/)
 
-| Metric          | Budget |
-|-----------------|--------|
-| Total page weight (initial) | ≤ 500 KB |
-| Render-blocking JS | 0 KB |
-| Images (per page) | ≤ 300 KB initial |
-| Fonts | ≤ 150 KB (2 variable woff2) |
-| Requests before consent click | 0 third-party |
+| Metric                        | Budget                      |
+| ----------------------------- | --------------------------- |
+| Total page weight (initial)   | ≤ 500 KB                    |
+| Render-blocking JS            | 0 KB                        |
+| Images (per page)             | ≤ 300 KB initial            |
+| Fonts                         | ≤ 150 KB (2 variable woff2) |
+| Requests before consent click | 0 third-party               |
 
 ## Lighthouse targets (mobile preset, throttled)
 
-| Category     | Target |
-|--------------|--------|
-| Performance  | ≥ 90   |
-| Accessibility| ≥ 90   |
-| Best Practices | ≥ 90 |
-| SEO          | ≥ 90   |
+| Category       | Target |
+| -------------- | ------ |
+| Performance    | ≥ 90   |
+| Accessibility  | ≥ 90   |
+| Best Practices | ≥ 90   |
+| SEO            | ≥ 90   |
 
 ## Protocol (per release, manual — also QA step 8.3)
 
