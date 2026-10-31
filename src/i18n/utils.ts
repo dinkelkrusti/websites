@@ -5,7 +5,9 @@ import type { Lang } from "./ui";
  * site moves to its own domain at launch. All internal hrefs go through
  * withBase(), so that move is a config change only — no code changes.
  */
-export const BASE = import.meta.env.BASE_URL;
+const rawBase = import.meta.env.BASE_URL;
+/** Always has a trailing slash: '/websites/' now, '/' after the launch move. */
+export const BASE = rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
 
 /** Prefix a root-relative path ('/de/…') with the configured base. */
 export function withBase(path: string): string {
