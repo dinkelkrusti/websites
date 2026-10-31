@@ -2,6 +2,7 @@
 import PageHero from "../PageHero.astro";
 import Button from "../Button.astro";
 import { getConcerts, formatConcertDate } from "../../lib/concerts";
+import JsonLd from "../JsonLd.astro";
 
 const { lang } = Astro.props as { lang: "de" | "en" };
 const { upcoming, past } = await getConcerts();
@@ -19,8 +20,31 @@ const strings = {
     tickets: "Tickets",
   },
 }[lang];
+const events = upcoming.map((concert) => ({
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  name: `ex nihilo — ${concert.data.venue}`,
+  startDate: concert.data.date.toISOString().slice(0, 10),
+  eventStatus: "https://schema.org/EventScheduled",
+  location: {
+    "@type": "Place",
+    name: concert.data.venue,
+    address: concert.data.city,
+  },
+  performer: { "@type": "MusicGroup", name: "ex nihilo" },
+  ...(concert.data.link && {
+    offers: {
+      "@type": "Offer",
+      url: concert.data.link,
+      availability: "https://schema.org/InStock",
+    },
+  }),
+}));
 ---
 
+{events.map((event) => (
+  <JsonLd data={event} />
+))}
 <PageHero
   lang={lang}
   kicker="Live"

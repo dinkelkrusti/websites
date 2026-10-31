@@ -1,7 +1,8 @@
 ---
 import Button from "../Button.astro";
-import { localizedPath } from "../../i18n/utils";
+import { localizedPath, withBase } from "../../i18n/utils";
 import type { Lang } from "../../i18n/ui";
+import JsonLd from "../JsonLd.astro";
 
 interface Props {
   lang: Lang;
@@ -40,8 +41,24 @@ const teaser = [
   { page: "konzerte" as const, title: copy.konzerte, text: copy.konzerteText },
   { page: "presse" as const, title: copy.presse, text: copy.presseText },
 ];
+
+const site = Astro.site ?? new URL("http://localhost:4321");
+const musicGroup = {
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  name: "ex nihilo",
+  url: new URL(withBase(`/${lang}/`), site).href,
+  genre: lang === "de" ? "Klassische Musik" : "Classical music",
+  member: [
+    { "@type": "Person", name: "Violeta Kadesha" },
+    { "@type": "Person", name: "Jakob Grabenhorst" },
+  ],
+  // [temp] sameAs: [ensemble Instagram, agency profile, …] once real
+  // [temp] image: og/photo URL once real photos exist
+};
 ---
 
+<JsonLd data={musicGroup} />
 <section class="hero">
   <p class="hero-kicker">ex nihilo</p>
   <h1 class="hero-word">{copy.statement}</h1>

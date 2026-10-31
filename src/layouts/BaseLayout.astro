@@ -33,6 +33,7 @@ const site = Astro.site ?? new URL("http://localhost:4321");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site)} />
     <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
     {!hideAlternates && (
       <>
@@ -57,11 +58,15 @@ const site = Astro.site ?? new URL("http://localhost:4321");
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, site).href} />
+    <meta property="og:site_name" content="ex nihilo" />
+    <meta property="og:locale" content={lang === "de" ? "de_DE" : "en_US"} />
     <!-- [temp] add public/og.jpg (1200x630) before launch, or remove this line until then -->
     <meta
       property="og:image"
       content={new URL(withBase("/og.jpg"), site).href}
     />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <a class="skip-link" href="#main">
