@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../i18n/utils";
 ---
 
 <BaseLayout
@@ -10,7 +11,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="nf">
     <h1>Seite nicht gefunden · Page not found</h1>
     <p>
-      <a href="/de/">Deutsch</a> · <a href="/en/">English</a>
+      <a href={withBase("/de/")}>Deutsch</a> ·{" "}
+      <a href={withBase("/en/")}>English</a>
     </p>
   </section>
 </BaseLayout>

@@ -1,6 +1,6 @@
 ---
 import { useTranslations, type Lang, type UiKey } from "../i18n/ui";
-import { pages, localizedPath } from "../i18n/utils";
+import { pages, localizedPath, withBase } from "../i18n/utils";
 
 interface Props {
   lang: Lang;
@@ -25,10 +25,10 @@ const navKey = (page: string) => `nav.${page}` as UiKey;
       <h3>{t("footer.legal")}</h3>
       <ul>
         <li>
-          <a href="/de/impressum/">{t("footer.impressum")}</a>
+          <a href={withBase("/de/impressum/")}>{t("footer.impressum")}</a>
         </li>
         <li>
-          <a href="/de/datenschutz/">{t("footer.datenschutz")}</a>
+          <a href={withBase("/de/datenschutz/")}>{t("footer.datenschutz")}</a>
         </li>
       </ul>
     </div>
