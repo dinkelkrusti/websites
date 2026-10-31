@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Lang } from "../../i18n/ui";
+import DuoPage from "../../components/pages/DuoPage.astro";
+const lang: Lang = "de";
+---
+
+<BaseLayout
+  lang={lang}
+  title="ex nihilo — Duo"
+  description="ex nihilo: Biographien und Duo-Geschichte"
+>
+  <DuoPage lang={lang} />
+</BaseLayout>

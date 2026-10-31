@@ -10,10 +10,11 @@ import { useTranslations, type Lang } from "../i18n/ui";
 interface Props {
   title: string;
   description: string;
+  hideAlternates?: boolean;
   lang?: Lang;
 }
 
-const { title, description } = Astro.props;
+const { title, description, hideAlternates } = Astro.props;
 const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const other: Lang = lang === "de" ? "en" : "de";
@@ -33,17 +34,21 @@ const site = Astro.site ?? new URL("http://localhost:4321");
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link
-      rel="alternate"
-      hreflang={lang}
-      href={new URL(Astro.url.pathname, site)}
-    />
-    <link
-      rel="alternate"
-      hreflang={other}
-      href={new URL(alternatePath, site)}
-    />
-    <link rel="alternate" hreflang="x-default" href={new URL("/", site)} />
+    {!hideAlternates && (
+      <>
+        <link
+          rel="alternate"
+          hreflang={lang}
+          href={new URL(Astro.url.pathname, site)}
+        />
+        <link
+          rel="alternate"
+          hreflang={other}
+          href={new URL(alternatePath, site)}
+        />
+        <link rel="alternate" hreflang="x-default" href={new URL("/", site)} />
+      </>
+    )}
     <meta name="generator" content={Astro.generator} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

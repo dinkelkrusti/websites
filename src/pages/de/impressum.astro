@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  lang="de"
+  title="Impressum — ex nihilo"
+  description="Impressum und Anbieterkennzeichnung nach § 5 DDG."
+  hideAlternates
+>
+  <section class="legal">
+    <h1>Impressum</h1>
+    <p>Angaben gemäß § 5 DDG:</p>
+    <dl class="legal-list">
+      <dt>Anbieter</dt>
+      <dd>ex nihilo — [Vorname Nachname] &amp; [Vorname Nachname] GbR</dd>
+      <dt>Anschrift</dt>
+      <dd>[Straße Hausnummer], [PLZ Ort], Deutschland</dd>
+      <dt>E-Mail</dt>
+      <dd>
+        <a href="mailto:kontakt@ex-nihilo.example">kontakt@ex-nihilo.example</a>
+      </dd>
+      <dt>Telefon</dt>
+      <dd>[Telefonnummer]</dd>
+      <dt>Umsatzsteuer-ID</dt>
+      <dd>[falls vorhanden, sonst Zeile streichen]</dd>
+    </dl>
+    <p>
+      [temp] Vor Launch: Angaben prüfen; Generator-Entwurf +
+      Fachanwalt/IHK-Review einplanen (5.7).
+    </p>
+  </section>
+</BaseLayout>
+<style>
+  .legal {
+    padding-block: var(--space-section);
+  }
+  .legal-list {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: var(--space-2) var(--space-5);
+  }
+  .legal-list dt {
+    color: var(--color-text-soft);
+  }
+  .legal-list dd {
+    margin: 0;
+  }
+</style>

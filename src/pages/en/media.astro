@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Lang } from "../../i18n/ui";
+import MediaPage from "../../components/pages/MediaPage.astro";
+const lang: Lang = "en";
+---
+
+<BaseLayout
+  lang={lang}
+  title="ex nihilo — Media"
+  description="ex nihilo: Media"
+>
+  <MediaPage lang={lang} />
+</BaseLayout>

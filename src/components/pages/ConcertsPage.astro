@@ -1,0 +1,113 @@
+---
+import PageHero from "../PageHero.astro";
+import Button from "../Button.astro";
+import { getConcerts, formatConcertDate } from "../../lib/concerts";
+
+const { lang } = Astro.props as { lang: "de" | "en" };
+const { upcoming, past } = await getConcerts();
+const strings = {
+  de: {
+    upcoming: "Kommende Konzerte",
+    past: "Vergangene Konzerte",
+    none: "Aktuell sind keine Konzerte geplant — schreibt uns für eine Anfrage.",
+    tickets: "Tickets",
+  },
+  en: {
+    upcoming: "Upcoming concerts",
+    past: "Past concerts",
+    none: "No concerts scheduled right now — get in touch for a booking inquiry.",
+    tickets: "Tickets",
+  },
+}[lang];
+---
+
+<PageHero
+  lang={lang}
+  kicker="Live"
+  title={lang === "de" ? "Konzerte" : "Concerts"}
+  intro={
+    lang === "de"
+      ? "Wo etwas aus nichts entsteht."
+      : "Where something comes of nothing."
+  }
+/>
+
+<section>
+  <h2>{strings.upcoming}</h2>
+  {upcoming.length === 0 && <p>{strings.none}</p>}
+  <ul class="concert-list">
+    {upcoming.map((concert) => (
+      <li class="concert-item">
+        <div class="concert-date">
+          {formatConcertDate(concert.data.date, lang)}
+        </div>
+        <div>
+          <strong>{concert.data.venue}</strong>
+          <span class="concert-city">{concert.data.city}</span>
+          <span class="concert-program">{concert.data.program[lang]}</span>
+        </div>
+        {concert.data.link && (
+          <Button href={concert.data.link} variant="secondary">
+            {strings.tickets}
+          </Button>
+        )}
+      </li>
+    ))}
+  </ul>
+</section>
+
+{past.length > 0 && (
+  <section>
+    <h2>{strings.past}</h2>
+    <ul class="concert-list">
+      {past.map((concert) => (
+        <li class="concert-item concert-item--past">
+          <div class="concert-date">
+            {formatConcertDate(concert.data.date, lang)}
+          </div>
+          <div>
+            <strong>{concert.data.venue}</strong>
+            <span class="concert-city">{concert.data.city}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .concert-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .concert-item {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: var(--space-4);
+    align-items: center;
+    background: var(--color-surface);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+  }
+  .concert-item--past {
+    opacity: 0.7;
+  }
+  .concert-date {
+    color: var(--color-gold);
+    font-size: var(--fs-small);
+  }
+  .concert-item div {
+    display: grid;
+    gap: var(--space-1);
+  }
+  .concert-city {
+    color: var(--color-text-soft);
+  }
+  .concert-program {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+  }
+</style>

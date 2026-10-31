@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Lang } from "../../i18n/ui";
+import ContactPage from "../../components/pages/ContactPage.astro";
+const lang: Lang = "en";
+---
+
+<BaseLayout
+  lang={lang}
+  title="ex nihilo — Contact"
+  description="ex nihilo: Contact."
+>
+  <ContactPage lang={lang} />
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Lang } from "../../i18n/ui";
+import ConcertsPage from "../../components/pages/ConcertsPage.astro";
+const lang: Lang = "de";
+---
+
+<BaseLayout
+  lang={lang}
+  title="ex nihilo — Konzerte"
+  description="ex nihilo: Kommende und vergangene Auftritte"
+>
+  <ConcertsPage lang={lang} />
+</BaseLayout>

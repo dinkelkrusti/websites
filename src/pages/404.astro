@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  lang="de"
+  title="404 — ex nihilo"
+  description="Seite nicht gefunden."
+>
+  <section class="nf">
+    <h1>Seite nicht gefunden · Page not found</h1>
+    <p>
+      <a href="/de/">Deutsch</a> · <a href="/en/">English</a>
+    </p>
+  </section>
+</BaseLayout>
+<style>
+  .nf {
+    padding-block: var(--space-section);
+    display: grid;
+    gap: var(--space-4);
+    justify-items: center;
+    text-align: center;
+  }
+</style>

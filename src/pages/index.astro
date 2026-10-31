@@ -1,33 +1,48 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { getConcerts, formatConcertDate } from "../lib/concerts";
-import { getPhotos } from "../lib/photos";
-
-const { upcoming, past } = await getConcerts();
-const photos = await getPhotos();
+import "../styles/tokens.css";
 ---
 
-<BaseLayout
-  title="ex nihilo — Duo"
-  description="ex nihilo — klassisches Duo. [temp] Testseite 6.2."
->
-  <section style="padding-block: var(--space-section);">
-    <h2>Konzerte (Collections-Test)</h2>
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ex nihilo</title>
+    <meta name="robots" content="noindex" />
+    <style>
+      body {
+        background: #131110;
+        color: #f3eee3;
+        font-family: system-ui, sans-serif;
+        display: grid;
+        place-items: center;
+        min-height: 100svh;
+        margin: 0;
+      }
+      a {
+        color: #c9a24f;
+        padding: 1rem;
+      }
+      ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
     <ul>
-      {upcoming.map((c) => (
-        <li>
-          {formatConcertDate(c.data.date, "de")} — {c.data.venue}, {c.data.city}
-        </li>
-      ))}
+      <li>
+        <a href="de/">Deutsch</a>
+      </li>
+      <li>
+        <a href="en/">English</a>
+      </li>
     </ul>
-    <h3>Past: {past.length}</h3>
-    <h2>Photos</h2>
-    <ul>
-      {photos.map((p) => (
-        <li>
-          {p.data.alt} (order {p.data.order})
-        </li>
-      ))}
-    </ul>
-  </section>
-</BaseLayout>
+    <script>
+      const lang = navigator.language?.toLowerCase() ?? "de";
+      location.replace(lang.startsWith("de") ? "de/" : "en/");
+    </script>
+  </body>
+</html>

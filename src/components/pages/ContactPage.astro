@@ -1,0 +1,175 @@
+---
+import PageHero from "../PageHero.astro";
+
+const { lang } = Astro.props as { lang: "de" | "en" };
+const strings = {
+  de: {
+    heading: "Kontakt",
+    intro: "Anfrage für ein Konzert oder einfach nur Hallo?",
+    name: "Name",
+    email: "E-Mail",
+    date: "Datum der Veranstaltung (optional)",
+    message: "Nachricht",
+    submit: "Nachricht öffnen",
+    privacy:
+      "Es werden keine Daten auf dieser Website gespeichert — die Nachricht öffnet sich in deinem E-Mail-Programm.",
+    direct: "Oder direkt: ",
+  },
+  en: {
+    heading: "ContactPage",
+    intro: "Concert inquiry or just saying hello?",
+    name: "Name",
+    email: "Email",
+    date: "Event date (optional)",
+    message: "Message",
+    submit: "Open message",
+    privacy:
+      "No data is stored on this website — the message opens in your email client.",
+    direct: "Or directly: ",
+  },
+}[lang];
+const emailAddress = "kontakt@ex-nihilo.example"; // [temp] 5.1
+---
+
+<PageHero
+  lang={lang}
+  kicker="Kontakt"
+  title={strings.heading}
+  intro={strings.intro}
+/>
+
+<form class="contact-form" data-email={emailAddress}>
+  <div class="field-row">
+    <p class="field">
+      <label for="cf-name">{strings.name}</label>
+      <input
+        id="cf-name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        required
+      />
+    </p>
+    <p class="field">
+      <label for="cf-email">{strings.email}</label>
+      <input
+        id="cf-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+      />
+    </p>
+  </div>
+  <p class="field">
+    <label for="cf-date">{strings.date}</label>
+    <input id="cf-date" name="date" type="date" />
+  </p>
+  <p class="field">
+    <label for="cf-message">{strings.message}</label>
+    <textarea id="cf-message" name="message" rows="6" required></textarea>
+  </p>
+  <p class="hp-field" aria-hidden="true">
+    <label for="cf-hp">Bitte nicht ausfüllen</label>
+    <input
+      id="cf-hp"
+      name="company"
+      type="text"
+      tabindex="-1"
+      autocomplete="off"
+    />
+  </p>
+  <p class="privacy-note">{strings.privacy}</p>
+  <button class="submit-btn" type="submit">
+    {strings.submit}
+  </button>
+</form>
+<p class="direct">
+  {strings.direct}
+  <a href={`mailto:${emailAddress}`}>{emailAddress}</a>
+</p>
+
+<script>
+  document
+    .querySelectorAll<HTMLFormElement>(".contact-form")
+    .forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        if (String(data.get("company") || "")) return; // honeypot
+        const to = String(form.dataset.email);
+        const subject = `ex nihilo — ${data.get("name")}`;
+        const body = [
+          data.get("date"),
+          data.get("message"),
+          "",
+          data.get("email"),
+        ]
+          .filter(Boolean)
+          .join("\n");
+        window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    });
+</script>
+
+<style>
+  .contact-form {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 40rem;
+  }
+  .field-row {
+    display: grid;
+    gap: var(--space-4);
+  }
+  @media (min-width: 768px) {
+    .field-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .field {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+  }
+  .field label {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+  }
+  .field input,
+  .field textarea {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    font: inherit;
+    min-height: 48px;
+    width: 100%;
+  }
+  .hp-field {
+    position: absolute;
+    inset-inline-start: -9999px;
+  }
+  .privacy-note {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+  }
+  .submit-btn {
+    justify-self: start;
+    background: var(--color-gold);
+    color: var(--color-void);
+    border: none;
+    border-radius: var(--radius-md);
+    min-height: 44px;
+    padding: var(--space-3) var(--space-5);
+    font: inherit;
+    cursor: pointer;
+  }
+  .submit-btn:hover {
+    background: var(--color-gold-bright);
+  }
+  .direct {
+    margin-block-start: var(--space-6);
+  }
+</style>

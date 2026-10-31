@@ -1,0 +1,133 @@
+---
+import Button from "../Button.astro";
+import { localizedPath } from "../../i18n/utils";
+import type { Lang } from "../../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const copy = {
+  de: {
+    statement: "Zwei Musiker. Ein Klang. Aus dem Nichts.",
+    intro:
+      "ex nihilo — das klassische Duo von Violeta Kadesha und Jakob Grabenhorst. [temp: 2–3 Sätze über euch]",
+    duo: "Duo",
+    duoText: "Wer wir sind und wie wir spielen.",
+    medien: "Medien",
+    medienText: "Fotos und Videos aus Konzert und Probenraum.",
+    konzerte: "Konzerte",
+    konzerteText: "Wo ihr uns live erleben könnt.",
+    presse: "Presse",
+    presseText: "Stimmen, Material und alles für Veranstalter.",
+  },
+  en: {
+    statement: "Two musicians. One sound. Out of nothing.",
+    intro:
+      "ex nihilo — the classical duo of Violeta Kadesha and Jakob Grabenhorst. [temp: 2–3 sentences]",
+    duo: "Duo",
+    duoText: "Who we are and how we play.",
+    medien: "Media",
+    medienText: "Photos and videos.",
+    konzerte: "Concerts",
+    konzerteText: "Where to hear us live.",
+    presse: "Press",
+    presseText: "Voices, material, and everything for promoters.",
+  },
+}[lang];
+const teaser = [
+  { page: "medien" as const, title: copy.medien, text: copy.medienText },
+  { page: "konzerte" as const, title: copy.konzerte, text: copy.konzerteText },
+  { page: "presse" as const, title: copy.presse, text: copy.presseText },
+];
+---
+
+<section class="hero">
+  <p class="hero-kicker">ex nihilo</p>
+  <h1 class="hero-word">{copy.statement}</h1>
+  <p class="hero-intro">{copy.intro}</p>
+  <div class="hero-cta">
+    <Button href={localizedPath(lang, "konzerte")} variant="primary">
+      {lang === "de" ? "Konzerte ansehen" : "View concerts"}
+    </Button>
+    <Button href={localizedPath(lang, "kontakt")} variant="secondary">
+      {lang === "de" ? "Duo anfragen" : "Book the duo"}
+    </Button>
+  </div>
+</section>
+
+<section class="teaser-row">
+  {teaser.map((item) => (
+    <a class="teaser-card" href={localizedPath(lang, item.page)}>
+      <h2>{item.title}</h2>
+      <p>{item.text}</p>
+    </a>
+  ))}
+</section>
+
+<style>
+  .hero {
+    min-height: 85svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-4);
+    padding-block: var(--space-section);
+  }
+  .hero-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--color-gold);
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+  .hero-word {
+    font-size: var(--fs-h1);
+    margin: 0;
+    max-width: 14ch;
+  }
+  .hero-intro {
+    font-size: 1.125rem;
+    color: var(--color-text-soft);
+  }
+  .hero-cta {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-block-start: var(--space-4);
+  }
+  .teaser-row {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-6);
+  }
+  @media (min-width: 768px) {
+    .teaser-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .teaser-card {
+    display: block;
+    background: var(--color-surface);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      translate var(--transition),
+      border-color var(--transition);
+  }
+  .teaser-card:hover {
+    translate: 0 -2px;
+    border-color: var(--color-gold);
+  }
+  .teaser-card h2 {
+    font-size: var(--fs-h3);
+    margin-block-end: var(--space-2);
+  }
+  .teaser-card p {
+    color: var(--color-text-soft);
+    margin: 0;
+  }
+</style>

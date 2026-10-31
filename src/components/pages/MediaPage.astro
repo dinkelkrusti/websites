@@ -1,0 +1,78 @@
+---
+import { Picture } from "astro:assets";
+import PageHero from "../PageHero.astro";
+import VideoEmbed from "../VideoEmbed.astro";
+import { getPhotos } from "../../lib/photos";
+
+const { lang } = Astro.props as { lang: "de" | "en" };
+const photos = await getPhotos();
+const videos = [
+  { id: "VIDEO_ID", title: "[temp] Titel eures YouTube-Videos" },
+  // add more: { id: '...', title: '...' }
+];
+---
+
+<PageHero
+  lang={lang}
+  kicker="Medien"
+  title={lang === "de" ? "Medien" : "Media"}
+  intro={
+    lang === "de"
+      ? "Bilder und Klänge aus dem Nichts."
+      : "Sights and sounds out of nothing."
+  }
+/>
+
+<section>
+  <h2>{lang === "de" ? "Fotos" : "Photos"}</h2>
+  <div class="gallery">
+    {photos.map((photo) => (
+      <figure class="gallery-item">
+        <Picture
+          src={photo.data.image}
+          formats={["avif", "webp"]}
+          alt={photo.data.alt}
+          widths={[480, 960, 1440]}
+          sizes="(max-width: 768px) 45vw, (max-width: 1024px) 33vw, 25vw"
+        />
+        {photo.data.caption?.[lang] && (
+          <figcaption>{photo.data.caption[lang]}</figcaption>
+        )}
+      </figure>
+    ))}
+  </div>
+</section>
+
+<section>
+  <h2>{lang === "de" ? "Videos" : "Videos"}</h2>
+  <div class="videos">
+    {videos.map((video) => (
+      <VideoEmbed lang={lang} youtubeId={video.id} title={video.title} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .gallery {
+    display: grid;
+    gap: var(--space-4);
+  }
+  @media (min-width: 768px) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .gallery-item {
+    margin: 0;
+  }
+  .gallery-item figcaption {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+    margin-block-start: var(--space-2);
+  }
+  .videos {
+    display: grid;
+    gap: var(--space-5);
+    max-width: 48rem;
+  }
+</style>

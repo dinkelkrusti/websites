@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Lang } from "../../i18n/ui";
+import HomePage from "../../components/pages/HomePage.astro";
+const lang: Lang = "de";
+---
+
+<BaseLayout
+  lang={lang}
+  title="ex nihilo — Klassisches Duo"
+  description="ex nihilo: Violeta Kadesha & Jakob Grabenhorst. Konzerte, Medien und Kontakt."
+>
+  <HomePage lang={lang} />
+</BaseLayout>

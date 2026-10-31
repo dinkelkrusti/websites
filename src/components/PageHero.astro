@@ -1,0 +1,35 @@
+---
+interface Props {
+  lang: "de" | "en";
+  kicker: string;
+  title: string;
+  intro: string;
+}
+const { kicker, title, intro } = Astro.props;
+---
+
+<div class="page-hero">
+  <p class="kicker">{kicker}</p>
+  <h1>{title}</h1>
+  <p class="intro">{intro}</p>
+</div>
+<style>
+  .page-hero {
+    min-height: 40svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-3);
+    padding-block: var(--space-6);
+  }
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--color-gold);
+    font-size: var(--fs-small);
+  }
+  .intro {
+    color: var(--color-text-soft);
+    font-size: 1.125rem;
+  }
+</style>

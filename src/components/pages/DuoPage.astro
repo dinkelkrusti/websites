@@ -1,0 +1,80 @@
+---
+import PageHero from "../PageHero.astro";
+const { lang } = Astro.props as { lang: "de" | "en" };
+const bios = [
+  {
+    name: "[Vorname Nachname]", // [temp]
+    instrument: "[Instrument]",
+    text:
+      lang === "de"
+        ? "[temp: 2–3 Absätze Bio — Ausbildung, Preise, Projekte.]"
+        : "[temp: 2–3 paragraphs bio — training, awards, projects.]",
+  },
+  {
+    name: "[Vorname Nachname]", // [temp]
+    instrument: "[Instrument]",
+    text:
+      lang === "de"
+        ? "[temp: 2–3 Absätze Bio.]"
+        : "[temp: 2–3 paragraphs bio.]",
+  },
+];
+const story =
+  lang === "de"
+    ? "[temp: Wie und wann ist ex nihilo entstanden?]"
+    : "[temp: How and when did ex nihilo come into being?]";
+---
+
+<PageHero
+  lang={lang}
+  kicker="Duo"
+  title="ex nihilo"
+  intro={lang === "de" ? "Zwei Stimmen, ein Name." : "Two voices, one name."}
+/>
+<section class="bios">
+  {bios.map((bio) => (
+    <article class="bio-card" id={bio.name.toLowerCase().replace(/\s+/g, "-")}>
+      <div class="bio-photo" aria-hidden="true"></div>{" "}
+      {/* [temp] photo + alt once real portraits exist */}
+      <div>
+        <h2>{bio.name}</h2>
+        <p class="bio-instrument">{bio.instrument}</p>
+        <p>{bio.text}</p>
+      </div>
+    </article>
+  ))}
+</section>
+<section>
+  <h2>{lang === "de" ? "Die Geschichte" : "The story"}</h2>
+  <p>{story}</p>
+</section>
+<style>
+  .bios {
+    display: grid;
+    gap: var(--space-5);
+    padding-block: var(--space-6);
+  }
+  @media (min-width: 768px) {
+    .bios {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .bio-card {
+    background: var(--color-surface);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+  .bio-photo {
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface-gold);
+    border-radius: var(--radius-md);
+    margin-block-end: var(--space-4);
+  }
+  .bio-instrument {
+    color: var(--color-gold);
+    font-size: var(--fs-small);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+</style>

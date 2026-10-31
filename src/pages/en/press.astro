@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Lang } from "../../i18n/ui";
+import PressPage from "../../components/pages/PressPage.astro";
+const lang: Lang = "en";
+---
+
+<BaseLayout
+  lang={lang}
+  title="ex nihilo — Press"
+  description="ex nihilo: Reviews and Mentions"
+>
+  <PressPage lang={lang} />
+</BaseLayout>

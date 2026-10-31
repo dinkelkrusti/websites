@@ -1,0 +1,80 @@
+---
+import PageHero from "../PageHero.astro";
+import { getCollection } from "astro:content";
+
+const { lang } = Astro.props as { lang: "de" | "en" };
+const quotes = await getCollection("quotes");
+const strings = {
+  de: {
+    quotes: "Stimmen",
+    kit: "Pressemappe",
+    kitNote:
+      "PDF mit Bios, Fotos und Repertoire — [temp] Datei folgt in public/press-kit.pdf.",
+    rider: "Technik: [temp] MIDI-Setup, Stühle, Beleuchtung …",
+  },
+  en: {
+    quotes: "Voices",
+    kit: "PressPage kit",
+    kitNote:
+      "PDF with bios, photos and repertoire — [temp] file goes to public/press-kit.pdf.",
+    rider: "Technical requirements: [temp] …",
+  },
+}[lang];
+---
+
+<PageHero
+  lang={lang}
+  kicker="Presse"
+  title={lang === "de" ? "Presse" : "PressPage"}
+  intro={
+    lang === "de"
+      ? "Für Veranstalter und Journalisten."
+      : "For promoters and journalists."
+  }
+/>
+
+<section>
+  <h2>{strings.quotes}</h2>
+  {quotes.map((quote) => (
+    <blockquote lang={lang === "en" ? "de" : undefined}>
+      <p>„{quote.data.quote}“</p>
+      <footer>
+        {quote.data.url ? (
+          <a href={quote.data.url}>{quote.data.source}</a>
+        ) : (
+          <cite>{quote.data.source}</cite>
+        )}
+      </footer>
+    </blockquote>
+  ))}
+</section>
+
+<section>
+  <h2>{strings.kit}</h2>
+  <p>{strings.kitNote}</p>
+  <p class="rider">{strings.rider}</p>
+</section>
+
+<style>
+  blockquote {
+    margin-block: var(--space-5);
+    max-width: 60ch;
+    border-inline-start: var(--border-hairline);
+    padding-inline-start: var(--space-5);
+  }
+  blockquote p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.375rem;
+  }
+  blockquote footer {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+  }
+  cite {
+    font-style: normal;
+  }
+  .rider {
+    color: var(--color-text-soft);
+  }
+</style>

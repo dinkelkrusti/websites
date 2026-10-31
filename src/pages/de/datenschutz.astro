@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  lang="de"
+  title="Datenschutzerklärung — ex nihilo"
+  description="Datenschutzerklärung der Website ex nihilo."
+  hideAlternates
+>
+  <article class="legal">
+    <h1>Datenschutzerklärung</h1>
+
+    <h2>1. Verantwortlicher</h2>
+    <p>
+      ex nihilo — [Vorname Nachname] &amp; [Vorname Nachname] GbR, [Anschrift],
+      [E-Mail].
+    </p>
+
+    <h2>2. Hosting</h2>
+    <p>
+      Diese Website wird statisch ausgeliefert. Beim Abruf werden technische
+      Zugriffsdaten (IP-Adresse, Zeitpunkt) durch den Hosting-Anbieter [temp:
+      GitHub Pages/Fastly — vor Launch: EU-Hoster] verarbeitet, soweit dies zur
+      Bereitstellung technisch erforderlich ist (Art. 6 Abs. 1 lit. f DSGVO).
+    </p>
+
+    <h2>3. Kontaktaufnahme</h2>
+    <p>
+      Kontakt erfolgt per E-Mail-Link. Übermittelte Daten werden ausschließlich
+      zur Bearbeitung der Anfrage verwendet und nach Abschluss gelöscht (Art. 6
+      Abs. 1 lit. b DSGVO). Es werden keine Daten auf dieser Website
+      gespeichert.
+    </p>
+
+    <h2>4. YouTube-Videos</h2>
+    <p>
+      Videos werden über einen Klick-Button geladen (Zwei-Klick-Lösung): Erst
+      nach Ihrer Einwilligung wird eine Verbindung zu YouTube (Google LLC, USA)
+      hergestellt; dabei werden Daten an Google übertragen. Die Einwilligung
+      wird nicht gespeichert — beim erneuten Laden der Seite wird erneut
+      gefragt. Rechtsgrundlage: § 25 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO.
+      Transfers in die USA erfolhen auf Grundlage des EU-US Data Privacy
+      Frameworks. Widerruf: Seite einfach neu laden.
+    </p>
+
+    <h2>5. Ihre Rechte</h2>
+    <p>
+      Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung
+      der Verarbeitung, Datenübertragbarkeit sowie Widerspruch (Art. 15–21
+      DSGVO). Zudem können Sie sich bei der zuständigen Aufsichtsbehörde
+      beschweren.
+    </p>
+
+    <p>
+      [temp] Vor Launch: Text an finale Tools anpassen (EU-Hoster!),
+      Generator-Entwurf + Review (5.7).
+    </p>
+  </article>
+</BaseLayout>
+<style>
+  .legal {
+    padding-block: var(--space-section);
+    max-width: var(--measure);
+  }
+</style>

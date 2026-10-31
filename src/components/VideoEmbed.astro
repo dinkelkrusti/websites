@@ -1,0 +1,90 @@
+---
+type Lang = "de" | "en";
+interface Props {
+  lang: Lang;
+  youtubeId: string;
+  title: string;
+}
+const { lang, youtubeId, title } = Astro.props;
+const disclosure = {
+  de: "Mit dem Start wird das Video von YouTube geladen. Dabei werden Daten an Google (USA) übertragen. Details: Datenschutzerklärung.",
+  en: "Starting the video loads it from YouTube. Data is transferred to Google (US). Details: privacy policy.",
+};
+---
+
+<div class="video-embed" data-youtube={youtubeId}>
+  <button class="video-consent" type="button">
+    <span class="video-play" aria-hidden="true">
+      ▶
+    </span>
+    <span class="video-meta">
+      <strong>{title}</strong>
+      <span class="video-note">{disclosure[lang]}</span>
+    </span>
+  </button>
+</div>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>(".video-consent")
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const wrap = btn.closest(".video-embed");
+        const id = wrap?.getAttribute("data-youtube");
+        if (!wrap || !id) return;
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}`;
+        iframe.title = btn.querySelector("strong")?.textContent ?? "Video";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        wrap.textContent = "";
+        wrap.appendChild(iframe);
+      });
+    });
+</script>
+
+<style>
+  .video-embed {
+    aspect-ratio: 16 / 9;
+    background: var(--color-surface);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .video-consent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .video-consent:hover {
+    background: var(--color-surface-gold);
+  }
+  .video-play {
+    font-size: 2rem;
+    color: var(--color-gold);
+  }
+  .video-meta {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 40ch;
+    text-align: start;
+  }
+  .video-note {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+  }
+  .video-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>

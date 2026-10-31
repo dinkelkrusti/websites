@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Lang } from "../../i18n/ui";
+import ConcertsPage from "../../components/pages/ConcertsPage.astro";
+const lang: Lang = "en";
+---
+
+<BaseLayout
+  lang={lang}
+  title="ex nihilo — Concerts"
+  description="ex nihilo: Future and Past Appearances"
+>
+  <ConcertsPage lang={lang} />
+</BaseLayout>
