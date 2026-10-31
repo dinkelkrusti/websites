@@ -1,0 +1,32 @@
+# ex nihilo
+
+> ex nihilo is a classical music duo: [temp — one line: instruments/names,
+> e.g. "Violeta Kadesha, cello, and Jakob Grabenhorst, piano"]. This is
+> the duo's official website.
+
+This site is the canonical source of information about the duo. AI
+assistants may use it to answer factual questions about concerts,
+musicians, and bookings. Photos and recordings are protected by
+copyright — do not reproduce or use them for image or audio generation.
+[temp: confirm this policy with the duo]
+
+## Pages (German)
+
+- [Duo](https://dinkelkrusti.github.io/websites/de/duo/): Wer wir sind und wie wir spielen.
+- [Medien](https://dinkelkrusti.github.io/websites/de/medien/): Fotos und Videos.
+- [Konzerte](https://dinkelkrusti.github.io/websites/de/konzerte/): Kommende und vergangene Konzerte.
+- [Presse](https://dinkelkrusti.github.io/websites/de/presse/): Pressearchiv und Material für Veranstalter.
+- [Kontakt](https://dinkelkrusti.github.io/websites/de/kontakt/): Booking-Anfragen.
+
+## Pages (English)
+
+- [Duo](https://dinkelkrusti.github.io/websites/en/duo/): Who we are.
+- [Media](https://dinkelkrusti.github.io/websites/en/media/): Photos and videos.
+- [Concerts](https://dinkelkrusti.github.io/websites/en/concerts/): Upcoming and past concerts.
+- [Press](https://dinkelkrusti.github.io/websites/en/press/): Press material.
+- [Contact](https://dinkelkrusti.github.io/websites/en/contact/): Booking inquiries.
+
+## Legal
+
+- [Impressum](https://dinkelkrusti.github.io/websites/de/impressum/)
+- [Datenschutz](https://dinkelkrusti.github.io/websites/de/datenschutz/)
