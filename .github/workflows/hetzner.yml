@@ -24,7 +24,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint & check
-        run: pnpm lint && pnpm check
+        run: pnpm lint && pnpm astro:check --minimumFailingSeverity warning
 
       - name: Build (production)
         run: pnpm build
