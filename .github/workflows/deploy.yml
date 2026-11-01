@@ -61,8 +61,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build site
+      - name: Build (staging)
         run: pnpm build
+        env:
+          PUBLIC_NOINDEX: "true"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

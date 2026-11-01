@@ -32,7 +32,9 @@ const site = Astro.site ?? new URL("http://localhost:4321");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {noindex && <meta name="robots" content="noindex" />}
+    {(noindex || import.meta.env.PUBLIC_NOINDEX === "true") && (
+      <meta name="robots" content="noindex" />
+    )}
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, site)} />

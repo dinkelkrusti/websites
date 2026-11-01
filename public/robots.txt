@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dinkelkrusti.github.io/websites/sitemap-index.xml
+Sitemap: https://duo-ex-nihilo.de/sitemap-index.xml

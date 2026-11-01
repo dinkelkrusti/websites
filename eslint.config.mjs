@@ -24,5 +24,9 @@ export default defineConfig(
       parserOptions: { parser: tseslint.parser },
     },
   },
+  {
+    files: ["astro.config.mjs"],
+    languageOptions: { globals: { process: "readonly" } },
+  },
   prettierConfig,
 );

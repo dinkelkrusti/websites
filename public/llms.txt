@@ -12,21 +12,21 @@ copyright — do not reproduce or use them for image or audio generation.
 
 ## Pages (German)
 
-- [Duo](https://dinkelkrusti.github.io/websites/de/duo/): Wer wir sind und wie wir spielen.
-- [Medien](https://dinkelkrusti.github.io/websites/de/medien/): Fotos und Videos.
-- [Konzerte](https://dinkelkrusti.github.io/websites/de/konzerte/): Kommende und vergangene Konzerte.
-- [Presse](https://dinkelkrusti.github.io/websites/de/presse/): Pressearchiv und Material für Veranstalter.
-- [Kontakt](https://dinkelkrusti.github.io/websites/de/kontakt/): Booking-Anfragen.
+- [Duo](https://duo-ex-nihilo.de/de/duo/): Wer wir sind und wie wir spielen.
+- [Medien](https://duo-ex-nihilo.de/de/medien/): Fotos und Videos.
+- [Konzerte](https://duo-ex-nihilo.de/de/konzerte/): Kommende und vergangene Konzerte.
+- [Presse](https://duo-ex-nihilo.de/de/presse/): Pressearchiv und Material für Veranstalter.
+- [Kontakt](https://duo-ex-nihilo.de/de/kontakt/): Booking-Anfragen.
 
 ## Pages (English)
 
-- [Duo](https://dinkelkrusti.github.io/websites/en/duo/): Who we are.
-- [Media](https://dinkelkrusti.github.io/websites/en/media/): Photos and videos.
-- [Concerts](https://dinkelkrusti.github.io/websites/en/concerts/): Upcoming and past concerts.
-- [Press](https://dinkelkrusti.github.io/websites/en/press/): Press material.
-- [Contact](https://dinkelkrusti.github.io/websites/en/contact/): Booking inquiries.
+- [Duo](https://duo-ex-nihilo.de/en/duo/): Who we are.
+- [Media](https://duo-ex-nihilo.de/en/media/): Photos and videos.
+- [Concerts](https://duo-ex-nihilo.de/en/concerts/): Upcoming and past concerts.
+- [Press](https://duo-ex-nihilo.de/en/press/): Press material.
+- [Contact](https://duo-ex-nihilo.de/en/contact/): Booking inquiries.
 
 ## Legal
 
-- [Impressum](https://dinkelkrusti.github.io/websites/de/impressum/)
-- [Datenschutz](https://dinkelkrusti.github.io/websites/de/datenschutz/)
+- [Impressum](https://duo-ex-nihilo.de/de/impressum/)
+- [Datenschutz](https://duo-ex-nihilo.de/de/datenschutz/)
