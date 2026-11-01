@@ -26,6 +26,8 @@ jobs:
       - name: Lint & check
         run: pnpm lint && pnpm astro:check --minimumFailingSeverity warning
 
+      - run: pnpm format:read
+
       - name: Build (production)
         run: pnpm build
         env:
