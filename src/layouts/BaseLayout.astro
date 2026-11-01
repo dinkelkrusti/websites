@@ -11,10 +11,11 @@ interface Props {
   title: string;
   description: string;
   hideAlternates?: boolean;
+  noindex?: boolean;
   lang?: Lang;
 }
 
-const { title, description, hideAlternates } = Astro.props;
+const { title, description, hideAlternates, noindex } = Astro.props;
 const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const other: Lang = lang === "de" ? "en" : "de";
@@ -31,10 +32,12 @@ const site = Astro.site ?? new URL("http://localhost:4321");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {noindex && <meta name="robots" content="noindex" />}
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, site)} />
     <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />
     {!hideAlternates && (
       <>
         <link

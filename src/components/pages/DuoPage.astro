@@ -1,28 +1,47 @@
 ---
 import PageHero from "../PageHero.astro";
+import { Image } from "astro:assets";
+import violetaPhoto from "../../assets/bios/violeta-kadesha.jpg";
+import jakobPhoto from "../../assets/bios/jakob-grabenhorst.jpg";
+
 const { lang } = Astro.props as { lang: "de" | "en" };
+
 const bios = [
   {
-    name: "[Vorname Nachname]", // [temp]
-    instrument: "[Instrument]",
+    name: "Violeta Kadesha",
+    instrument: lang === "de" ? "Violine" : "Violin",
+    photo: violetaPhoto,
+    photoAlt:
+      lang === "de"
+        ? "Violeta Kadesha mit ihrer Violine"
+        : "Violeta Kadesha with her violin",
     text:
       lang === "de"
-        ? "[temp: 2–3 Absätze Bio — Ausbildung, Preise, Projekte.]"
-        : "[temp: 2–3 paragraphs bio — training, awards, projects.]",
+        ? `Die griechisch-albanische Geigerin Violeta Kadesha studierte bei Prof. Skerdjano Keraj an der Hochschule für Musik und Tanz Köln (Standort Aachen), wo sie 2025 ihren Bachelor of Music mit Zusatzprofil Instrumentalpädagogik abschloss. Kammermusik bildete einen Schwerpunkt ihres Studiums — im „Veritas“-Klaviertrio sowie in Kammermusikprofilen bei Prof. Hans-Christian Schweiker und Prof. David Quiggle.
+        Konzerte führten sie in die Carnegie Hall New York (Mahlers 2. Sinfonie mit dem Philharmonischen Orchester Athen), ins Athener Megaron und ins Festival Academy Budapest Youth Chamber Orchestra. Seit Januar 2026 organisiert sie ihre eigene Kammermusikreihe „Reflexionen der Realität“. Neben ihrer Konzerttätigkeit unterrichtet sie Violine an der städtischen Musikschule Aachen.`
+        : `Greek-Albanian violinist Violeta Kadesha studied with Prof. Skerdjano Keraj at the Cologne University of Music and Dance (Aachen campus), graduating with a Bachelor of Music and an additional profile in instrumental pedagogy in 2025. Chamber music was a core of her studies — in the Veritas piano trio and in chamber music profiles with Prof. Hans-Christian Schweiker and Prof. David Quiggle.
+        Performances have taken her to New York's Carnegie Hall (Mahler's 2nd Symphony with the Athens Philharmonic Orchestra), the Megaron in Athens, and the Festival Academy Budapest Youth Chamber Orchestra. She has organized her own chamber series "Reflexionen der Realität" since January 2026. Alongside her concert work she teaches violin at the municipal music school in Aachen.`,
   },
   {
-    name: "[Vorname Nachname]", // [temp]
-    instrument: "[Instrument]",
+    name: "Jakob Grabenhorst",
+    instrument: lang === "de" ? "Violoncello & Gesang" : "Cello & Voice",
+    photo: jakobPhoto,
+    photoAlt:
+      lang === "de"
+        ? "Jakob Grabenhorst mit seinem Violoncello"
+        : "Jakob Grabenhorst with his cello",
     text:
       lang === "de"
-        ? "[temp: 2–3 Absätze Bio.]"
-        : "[temp: 2–3 paragraphs bio.]",
+        ? `Der Cellist und Sänger Jakob Grabenhorst schloss 2025 sein Bachelorstudium Violoncello bei Prof. Hans-Christian Schweiker an der Hochschule für Musik und Tanz Köln ab; dort studiert er seit 2025 im Master Violoncello sowie Gesang bei Prof. Kai Wessel.
+        Er ist mehrfacher Preisträger des Dr. Alexander-Sikorski-Wettbewerbs (1. Preis 2023 und 2024) und des Bundeswettbewerbs „Jugend musiziert“. Engagements führten ihn zum Ensemble ColLab (u. a. „Gurre-Lied“ in der Kölner Philharmonie, „Pierrot Lunaire“), zur Jungen Deutschen Philharmonie, zur Sommeroper Höör in Schweden und ins Domorchester Aachen. Seit 2023 bildet er das Duo Cellux, mit dem er 2026 in das Förderprogramm von Yehudi Menuhin Live Music Now Köln aufgenommen wurde; seit 2022 leitet er das Chorcollegium Aachen.`
+        : `Cellist and singer Jakob Grabenhorst completed his bachelor's degree in cello with Prof. Hans-Christian Schweiker at the Cologne University of Music and Dance in 2025, where he is now pursuing a master's degree in cello as well as vocal studies with Prof. Kai Wessel.
+        He is a multiple prizewinner of the Dr. Alexander Sikorski Competition (1st prize 2023 and 2024) and of the national "Jugend musiziert" competition. Engagements have taken him to Ensemble ColLab (including the "Gurre-Lied" at the Cologne Philharmonie and "Pierrot Lunaire"), the Junge Deutsche Philharmonie, the Sommeroper Höör in Sweden, and the Aachen Cathedral Orchestra. Since 2023 he has formed Duo Cellux, admitted to the Yehudi Menuhin Live Music Now Köln sponsorship program in 2026; since 2022 he has conducted the Chorcollegium Aachen.`,
   },
 ];
 const story =
   lang === "de"
-    ? "[temp: Wie und wann ist ex nihilo entstanden?]"
-    : "[temp: How and when did ex nihilo come into being?]";
+    ? `Entstanden aus der gemeinsamen Kammermusikreihe „Reflexionen der Realität“, die Violeta Kadesha seit Januar 2026 mit Jakob Grabenhorst und der Pianistin Giulia Loperfido veranstaltet, formiert sich hier ein Duo, das seinen Namen ernst nimmt: aus dem Nichts — Violine und Violoncello, zwei Stimmen, ein Klang.`
+    : `Born out of the joint chamber music series "Reflexionen der Realität", which Violeta Kadesha has organized with Jakob Grabenhorst and pianist Giulia Loperfido since January 2026, this duo takes its name seriously: out of nothing — violin and cello, two voices, one sound.`;
 ---
 
 <PageHero
@@ -31,11 +50,19 @@ const story =
   title="ex nihilo"
   intro={lang === "de" ? "Zwei Stimmen, ein Name." : "Two voices, one name."}
 />
+
 <section class="bios">
   {bios.map((bio) => (
     <article class="bio-card" id={bio.name.toLowerCase().replace(/\s+/g, "-")}>
-      <div class="bio-photo" aria-hidden="true"></div>{" "}
-      {/* [temp] photo + alt once real portraits exist */}
+      <div class="bio-photo">
+        <Image
+          src={bio.photo}
+          alt={bio.photoAlt}
+          width={720}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
       <div>
         <h2>{bio.name}</h2>
         <p class="bio-instrument">{bio.instrument}</p>
@@ -44,10 +71,12 @@ const story =
     </article>
   ))}
 </section>
+
 <section>
   <h2>{lang === "de" ? "Die Geschichte" : "The story"}</h2>
   <p>{story}</p>
 </section>
+
 <style>
   .bios {
     display: grid;
@@ -67,9 +96,16 @@ const story =
   }
   .bio-photo {
     aspect-ratio: 4 / 5;
-    background: var(--color-surface-gold);
     border-radius: var(--radius-md);
     margin-block-end: var(--space-4);
+    overflow: hidden;
+  }
+  .bio-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* faces sit in the upper third — keep them in frame */
+    object-position: center 25%;
   }
   .bio-instrument {
     color: var(--color-gold);

@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import duoPhoto from "../../assets/duo/duo-portrait.jpg";
+import violetaPhoto from "../../assets/bios/violeta-kadesha.jpg";
+import jakobPhoto from "../../assets/bios/jakob-grabenhorst.jpg";
+---
+
+<BaseLayout
+  lang="de"
+  title="Pressemappe — ex nihilo"
+  description="Pressemappe des klassischen Duos ex nihilo: Biografien, Fotos, Kontakt."
+  hideAlternates
+  noindex
+>
+  <article class="kit">
+    <header class="kit-head">
+      <p class="kit-mark">ex nihilo</p>
+      <h1>Pressemappe</h1>
+      <p class="kit-hint">
+        Bildschirmansicht. Für ein PDF: Strg + P → „Als PDF speichern“.
+      </p>
+    </header>
+
+    <section>
+      <h2>Das Duo</h2>
+      <p>
+        Entstanden aus der gemeinsamen Kammermusikreihe „Reflexionen der
+        Realität“, die Violeta Kadesha seit Januar 2026 mit Jakob Grabenhorst
+        und der Pianistin Giulia Loperfido veranstaltet, formiert sich hier ein
+        Duo, das seinen Namen ernst nimmt: aus dem Nichts — Violine und
+        Violoncello, zwei Stimmen, ein Klang.
+      </p>
+    </section>
+
+    <section class="kit-people">
+      <article>
+        <Image
+          src={violetaPhoto}
+          alt="Violeta Kadesha mit ihrer Violine"
+          width={600}
+        />
+        <h3>Violeta Kadesha — Violine</h3>
+        <p>
+          Die griechisch-albanische Geigerin Violeta Kadesha studierte bei Prof.
+          Skerdjano Keraj an der Hochschule für Musik und Tanz Köln (Standort
+          Aachen), wo sie 2025 ihren Bachelor of Music mit Zusatzprofil
+          Instrumentalpädagogik abschloss. Kammermusik bildete einen Schwerpunkt
+          ihres Studiums — im „Veritas“-Klaviertrio sowie in Kammermusikprofilen
+          bei Prof. Hans-Christian Schweiker und Prof. David Quiggle. Konzerte
+          führten sie in die Carnegie Hall New York, ins Athener Megaron und ins
+          Festival Academy Budapest Youth Chamber Orchestra. Neben ihrer
+          Konzerttätigkeit unterrichtet sie Violine an der städtischen
+          Musikschule in Aachen.
+        </p>
+      </article>
+      <article>
+        <Image
+          src={jakobPhoto}
+          alt="Jakob Grabenhorst mit seinem Violoncello"
+          width={600}
+        />
+        <h3>Jakob Grabenhorst — Violoncello &amp; Gesang</h3>
+        <p>
+          Der Cellist und Sänger Jakob Grabenhorst schloss 2025 sein
+          Bachelorstudium Violoncello bei Prof. Hans-Christian Schweiker an der
+          Hochschule für Musik und Tanz Köln ab; dort studiert er seit 2025 im
+          Master Violoncello sowie Gesang bei Prof. Kai Wessel. Er ist
+          mehrfacher Preisträger des Dr.-Alexander-Sikorski-Wettbewerbs (1.
+          Preis 2023 und 2024) und des Bundeswettbewerbs „Jugend musiziert“.
+          Engagements führten ihn zum Ensemble ColLab, zur Jungen Deutschen
+          Philharmonie, zur Sommeroper Höör in Schweden und ins Domorchester
+          Aachen. Seit 2023 bildet er das Duo Cellux, mit dem er 2026 in das
+          Förderprogramm von Yehudi Menuhin Live Music Now Köln aufgenommen
+          wurde; seit 2022 leitet er das Chorcollegium Aachen.
+        </p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Bildmaterial</h2>
+      <Image
+        src={duoPhoto}
+        alt="Violeta Kadesha und Jakob Grabenhorst im Konzertdress vor weißem Hintergrund"
+        width={1200}
+      />
+      <p class="kit-note">
+        <!--Fotos: [Fotograf:in eintragen]. Verwendung nur mit Namensnennung.-->
+      </p>
+    </section>
+
+    <section>
+      <h2>Repertoire</h2>
+      <p>[temp] Repertoireliste folgt vor Launch.</p>
+    </section>
+
+    <section>
+      <h2>Kontakt</h2>
+      <p>
+        <a href="mailto:grabenhorst.jakob@gmx.de">grabenhorst.jakob@gmx.de</a>
+        <br />
+        <a href="tel:+4917661825922">+49 176 61825922</a>
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .kit {
+    max-width: 46rem;
+    margin-inline: auto;
+    padding-block: var(--space-6);
+    display: grid;
+    gap: var(--space-6);
+  }
+  .kit-head {
+    display: grid;
+    gap: var(--space-2);
+  }
+  .kit-mark {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-gold);
+    letter-spacing: 0.1em;
+  }
+  .kit-hint {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+  }
+  .kit-people {
+    display: grid;
+    gap: var(--space-5);
+  }
+  .kit-people img {
+    border-radius: var(--radius-md);
+  }
+  .kit-note {
+    font-size: var(--fs-small);
+    color: var(--color-text-soft);
+  }
+  @media print {
+    .kit-hint {
+      display: none;
+    }
+    .kit,
+    .kit * {
+      color: #000 !important;
+      background: #fff !important;
+    }
+    .kit a {
+      text-decoration: none;
+    }
+    section,
+    article {
+      break-inside: avoid;
+    }
+  }
+</style>

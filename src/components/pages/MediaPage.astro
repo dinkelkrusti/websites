@@ -6,9 +6,9 @@ import { getPhotos } from "../../lib/photos";
 
 const { lang } = Astro.props as { lang: "de" | "en" };
 const photos = await getPhotos();
-const videos = [
-  { id: "VIDEO_ID", title: "[temp] Titel eures YouTube-Videos" },
-  // add more: { id: '...', title: '...' }
+const videos: { id: string; title: string }[] = [
+  // Real YouTube IDs go here as soon as material exists:
+  // { id: "dQw4w9WgXcQ", title: "…" },
 ];
 ---
 
@@ -49,11 +49,17 @@ const videos = [
 
 <section>
   <h2>{lang === "de" ? "Videos" : "Videos"}</h2>
-  <div class="videos">
-    {videos.map((video) => (
-      <VideoEmbed lang={lang} youtubeId={video.id} title={video.title} />
-    ))}
-  </div>
+  {videos.length > 0 ? (
+    <div class="video-grid">
+      {videos.map((video) => (
+        <VideoEmbed lang={lang} youtubeId={video.id} title={video.title} />
+      ))}
+    </div>
+  ) : (
+    <p class="video-note">
+      {lang === "de" ? "Videos folgen in Kürze." : "Videos coming soon."}
+    </p>
+  )}
 </section>
 
 <style>
@@ -83,5 +89,8 @@ const videos = [
     display: grid;
     gap: var(--space-5);
     max-width: 48rem;
+  }
+  .video-note {
+    color: var(--color-text-soft);
   }
 </style>

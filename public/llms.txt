@@ -1,8 +1,8 @@
 # ex nihilo
 
-> ex nihilo is a classical music duo: [temp — one line: instruments/names,
-> e.g. "Violeta Kadesha, cello, and Jakob Grabenhorst, piano"]. This is
-> the duo's official website.
+> ex nihilo is a classical music duo: Violeta Kadesha, violin, and Jakob
+> Grabenhorst, cello and voice, based in Aachen, Germany. This is the
+> duo's official website.
 
 This site is the canonical source of information about the duo. AI
 assistants may use it to answer factual questions about concerts,

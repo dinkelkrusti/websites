@@ -1,6 +1,8 @@
 ---
 import PageHero from "../PageHero.astro";
 import { getCollection } from "astro:content";
+import { withBase } from "../../i18n/utils";
+import Button from "../Button.astro";
 
 const { lang } = Astro.props as { lang: "de" | "en" };
 const quotes = await getCollection("quotes");
@@ -9,15 +11,17 @@ const strings = {
     quotes: "Stimmen",
     kit: "Pressemappe",
     kitNote:
-      "PDF mit Bios, Fotos und Repertoire — [temp] Datei folgt in public/press-kit.pdf.",
-    rider: "Technik: [temp] MIDI-Setup, Stühle, Beleuchtung …",
+      "Bios, Fotos und Kontakt auf einer Seite — per Strg+P auch als PDF exportierbar.",
+    kitOpen: "Pressemappe öffnen",
+    rider: "Technik: [temp] folgt vor Launch.",
   },
   en: {
     quotes: "Voices",
-    kit: "PressPage kit",
+    kit: "Press kit",
     kitNote:
-      "PDF with bios, photos and repertoire — [temp] file goes to public/press-kit.pdf.",
-    rider: "Technical requirements: [temp] …",
+      "German-language press kit with bios, photos and contact details — also exports as a PDF via Ctrl+P.",
+    kitOpen: "Open press kit",
+    rider: "Technical requirements: Roof, Food, and Drinks.",
   },
 }[lang];
 ---
@@ -25,7 +29,7 @@ const strings = {
 <PageHero
   lang={lang}
   kicker="Presse"
-  title={lang === "de" ? "Presse" : "PressPage"}
+  title={lang === "de" ? "Presse" : "Press"}
   intro={
     lang === "de"
       ? "Für Veranstalter und Journalisten."
@@ -52,6 +56,9 @@ const strings = {
 <section>
   <h2>{strings.kit}</h2>
   <p>{strings.kitNote}</p>
+  <Button href={withBase("/de/presse-kit/")} variant="secondary">
+    {strings.kitOpen}
+  </Button>
   <p class="rider">{strings.rider}</p>
 </section>
 

@@ -12,6 +12,7 @@ export default defineConfig({
       // At launch: update the root URL to the new domain.
       filter: (page) =>
         !page.includes("/404") &&
+        !page.includes("/presse-kit") &&
         page !== "https://dinkelkrusti.github.io/websites/",
     }),
   ],
