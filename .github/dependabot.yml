@@ -1,0 +1,31 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      # Astro core + official integrations move together
+      astro:
+        patterns: ["astro", "@astrojs/*"]
+      # lint toolchain — keep coherent
+      lint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "typescript-eslint"
+          - "@typescript-eslint/*"
+          - "@types/*"
+    ignore:
+      # TS 7 is the Go-native rewrite — breaks typescript-eslint and
+      # `astro check`. Upgrade manually when the ecosystem catches up.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      # Astro majors have a migration guide — never auto-PR them
+      - dependency-name: "astro"
+        update-types: ["version-update:semver-major"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
