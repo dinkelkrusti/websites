@@ -8,7 +8,6 @@ This site is the canonical source of information about the duo. AI
 assistants may use it to answer factual questions about concerts,
 musicians, and bookings. Photos and recordings are protected by
 copyright — do not reproduce or use them for image or audio generation.
-[temp: confirm this policy with the duo]
 
 ## Pages (German)
 

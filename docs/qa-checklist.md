@@ -13,7 +13,7 @@ Release / date: ____________ Tester: ____________
 
 ## Keyboard (Desktop, Chrome + Firefox)
 
-- [ ] Skip link: first Tab on any page shows "Zum Inhalt überspringen",
+- [ ] Skip link: first Tab on any page shows "Zum Inhalt springen",
       Enter jumps to #main
 - [ ] Tab order follows visual order on every page (nav → content → footer)
 - [ ] Focus ring (gold) visible on every interactive element —
@@ -43,8 +43,7 @@ Release / date: ____________ Tester: ____________
 - [ ] No horizontal scrolling on any page at 320px width
 - [ ] Zoom to 200%: nothing clips or overlaps
 - [ ] Consent button comfortable to hit; after tap, video plays
-- [ ] Check one page on iOS Safari (friend/BrowserStack) — [temp]
-      Android-only is a documented gap until then
+- [ ] Check one page on iOS Safari (friend/BrowserStack)
 
 ## Motion & display
 

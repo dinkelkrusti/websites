@@ -19,7 +19,6 @@ const { title, description, hideAlternates, noindex } = Astro.props;
 const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const other: Lang = lang === "de" ? "en" : "de";
-// [temp] string surgery on pathname — fine at 5 pages, revisit if slugs get complex
 const cleanPath = stripBase(Astro.url.pathname);
 const alternatePath = withBase(
   cleanPath.replace(/^\/(de|en)(?=\/|$)/, `/${other}`),
@@ -66,7 +65,6 @@ const site = Astro.site ?? new URL("http://localhost:4321");
     <meta property="og:url" content={new URL(Astro.url.pathname, site).href} />
     <meta property="og:site_name" content="ex nihilo" />
     <meta property="og:locale" content={lang === "de" ? "de_DE" : "en_US"} />
-    <!-- [temp] add public/og.jpg (1200x630) before launch, or remove this line until then -->
     <meta
       property="og:image"
       content={new URL(withBase("/og.jpg"), site).href}

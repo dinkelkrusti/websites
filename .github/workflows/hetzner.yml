@@ -7,7 +7,17 @@ on:
 permissions: {}
 
 jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          format: "markdown"
+          args: ". --verbose --offline"
   deploy:
+    needs: [check-links]
     runs-on: ubuntu-latest
     environment: production
     steps:

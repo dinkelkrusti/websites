@@ -21,6 +21,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - run: pnpm format:read
+
       - run: pnpm lint && pnpm astro:check && pnpm build
         env:
           SITE_URL: https://duo-ex-nihilo.de
