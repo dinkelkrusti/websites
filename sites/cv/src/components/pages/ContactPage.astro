@@ -1,0 +1,71 @@
+---
+/** Contact by mailto only: no form, so nothing is stored or sent by the site. */
+import ButtonLink from "../ButtonLink.astro";
+import { profile } from "../../data/profile";
+import type { Lang } from "../../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const copy = {
+  de: {
+    title: "Kontakt",
+    intro:
+      "Für Jobangebote, Projekte oder Fragen schreiben Sie mir am besten eine E-Mail.",
+    button: "E-Mail schreiben",
+    subject: "Anfrage über die Website",
+    elsewhere: "Profile",
+  },
+  en: {
+    title: "Contact",
+    intro: "For job offers, projects or questions, email is the best way to reach me.",
+    button: "Send an email",
+    subject: "Enquiry via your website",
+    elsewhere: "Profiles",
+  },
+}[lang];
+
+// encodeURIComponent keeps umlauts intact in every mail client
+const mailto = `mailto:${profile.email}?subject=${encodeURIComponent(copy.subject)}`;
+---
+
+<div class="contact">
+  <h1>{copy.title}</h1>
+  <p class="intro">{copy.intro}</p>
+  <p>
+    <ButtonLink href={mailto}>{copy.button}</ButtonLink>
+  </p>
+  <p class="address">{profile.email}</p>
+
+  <h2>{copy.elsewhere}</h2>
+  <ul>
+    {
+      profile.links.map((link) => (
+        <li>
+          <a href={link.url}>{link.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .contact {
+    padding-block: var(--space-section);
+  }
+  .intro,
+  .address {
+    color: var(--color-muted);
+  }
+  h2 {
+    margin-block-start: var(--space-6);
+    font-size: var(--fs-h3);
+  }
+  li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+</style>

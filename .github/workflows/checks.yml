@@ -1,0 +1,32 @@
+name: Checks
+
+# Runs on every pull request, and as the first stage of deploy.yml.
+on:
+  pull_request:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+
+      - run: pnpm format:read
+      - run: pnpm lint
+      - run: pnpm astro:check
+      - run: pnpm build
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          format: "markdown"
+          args: ". --verbose --offline"

@@ -1,0 +1,13 @@
+title: ex nihilo — Website
+year: 2026
+summary:
+  de: >-
+    Zweisprachige Website für ein klassisches Duo: statisch, ohne Cookies und
+    Tracking, barrierearm, Videos erst nach Zwei-Klick-Einwilligung.
+  en: >-
+    Bilingual website for a classical music duo: static, no cookies or
+    tracking, accessible, videos load only after two-click consent.
+tech: [Astro, TypeScript, GitHub Actions, Hetzner]
+url: https://duo-ex-nihilo.de
+featured: true
+order: 1

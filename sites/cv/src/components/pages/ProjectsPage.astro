@@ -1,0 +1,45 @@
+---
+import ProjectCard from "../ProjectCard.astro";
+import { getProjects } from "../../lib/cv";
+import type { Lang } from "../../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const projects = await getProjects();
+
+const copy = {
+  de: {
+    title: "Projekte",
+    intro: "Berufliche und private Projekte, neueste zuerst.",
+  },
+  en: {
+    title: "Projects",
+    intro: "Professional and personal projects, newest first.",
+  },
+}[lang];
+---
+
+<div class="projects">
+  <h1>{copy.title}</h1>
+  <p class="intro">{copy.intro}</p>
+  <div class="grid">
+    {projects.map((project) => <ProjectCard project={project} lang={lang} />)}
+  </div>
+</div>
+
+<style>
+  .projects {
+    padding-block: var(--space-section);
+  }
+  .intro {
+    color: var(--color-muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-4);
+    margin-block-start: var(--space-5);
+  }
+</style>

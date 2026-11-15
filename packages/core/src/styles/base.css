@@ -1,0 +1,148 @@
+/*
+ * Shared base styles. Sites import this from their own tokens.css, which
+ * must define these semantic variables:
+ *
+ *   --color-bg, --color-surface, --color-text, --color-muted,
+ *   --color-accent, --color-accent-strong, --color-on-accent,
+ *   --font-body, --font-heading,
+ *   --fs-body, --fs-h1, --fs-h2, --fs-h3, --fs-small,
+ *   --space-1 … --space-6, --space-section,
+ *   --radius-md, --measure
+ */
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.15;
+  font-weight: 500;
+  margin-block-end: var(--space-4);
+}
+h1 {
+  font-size: var(--fs-h1);
+}
+h2 {
+  font-size: var(--fs-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+}
+
+p {
+  margin-block-end: var(--space-4);
+  max-width: var(--measure);
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-accent);
+}
+a:hover {
+  color: var(--color-accent-strong);
+}
+
+ul {
+  padding-inline-start: 1.25rem;
+}
+
+/* Focus system */
+:focus-visible {
+  outline: 2px solid var(--color-accent-strong);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* Visually hidden (for icon-only button labels) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  inset-inline-start: -9999px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  z-index: 100;
+}
+.skip-link:focus {
+  inset-inline-start: var(--space-2);
+}
+
+/* Page frame */
+main {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  min-height: 60svh;
+}
+@media (min-width: 768px) {
+  main {
+    padding-inline: 2rem;
+  }
+}
+
+/* Motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: content only, black on white */
+@media print {
+  body > header,
+  body > footer,
+  dialog,
+  .skip-link {
+    display: none;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

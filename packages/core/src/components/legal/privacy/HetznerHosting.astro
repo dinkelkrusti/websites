@@ -1,0 +1,28 @@
+---
+/**
+ * Hosting on the shared Hetzner server. The two props describe how the web
+ * server writes its access logs — they must match the server configuration.
+ */
+interface Props {
+  /** Days after which access logs are deleted */
+  logRetentionDays: number;
+  /** true if the server stores shortened IP addresses only */
+  ipShortened: boolean;
+}
+const { logRetentionDays, ipShortened } = Astro.props;
+const ip = ipShortened ? "gekürzte IP-Adresse" : "IP-Adresse";
+---
+
+<h2>Hosting und Server-Logfiles</h2>
+<p>
+  Diese Website wird auf einem Server der Hetzner Online GmbH, Industriestraße
+  25, 91710 Gunzenhausen, Deutschland, gehostet (Serverstandort: Deutschland).
+  Mit Hetzner besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.
+</p>
+<p>
+  Beim Aufruf der Website speichert der Server technisch notwendige Daten in
+  Logfiles: {ip}, Datum und Uhrzeit, aufgerufene Seite, Statuscode und
+  Browsertyp. Das dient der Auslieferung und der Sicherheit der Website
+  (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO). Die Logfiles werden
+  nach {logRetentionDays} Tagen gelöscht.
+</p>

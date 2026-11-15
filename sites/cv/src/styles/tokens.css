@@ -1,0 +1,64 @@
+/* CV site design tokens. Shared base styles live in @websites/core. */
+@import "@websites/core/styles/base.css";
+
+:root {
+  color-scheme: light dark;
+
+  /* palette (light) */
+  --color-bg: #fbfaf8;
+  --color-surface: #f1efea;
+  --color-border: #dcd8d0;
+  --color-text: #1d1f22;
+  --color-muted: #5a5f66;
+  --color-accent: #0b6e69;
+  --color-accent-strong: #08524e;
+  --color-on-accent: #ffffff;
+
+  /* fluid type */
+  --fs-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --fs-h1: clamp(2rem, 1.6rem + 2vw, 3.25rem);
+  --fs-h2: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --fs-h3: clamp(1.125rem, 1.05rem + 0.4vw, 1.3rem);
+  --fs-small: 0.875rem;
+
+  /* fonts: Inter for everything, the system's monospace for code-ish bits */
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-heading: var(--font-body);
+  --font-mono:
+    ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+
+  /* spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-section: clamp(3rem, 6vw, 6rem);
+
+  /* misc */
+  --border-hairline: 1px solid var(--color-border);
+  --radius-md: 8px;
+  --transition: 150ms ease-out;
+  --measure: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #121417;
+    --color-surface: #1b1e22;
+    --color-border: #2c3036;
+    --color-text: #e8e6e3;
+    --color-muted: #a3a8ae;
+    --color-accent: #5cc8bf;
+    --color-accent-strong: #8ee0d8;
+    --color-on-accent: #0b1213;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}

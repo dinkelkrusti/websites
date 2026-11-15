@@ -1,0 +1,16 @@
+{
+  "name": "@websites/core",
+  "private": true,
+  "type": "module",
+  "description": "Shared building blocks for all sites: base path, i18n, document shell, SEO head, legal pages.",
+  "exports": {
+    "./base": "./src/base.ts",
+    "./i18n": "./src/i18n.ts",
+    "./content": "./src/content.ts",
+    "./styles/base.css": "./src/styles/base.css",
+    "./components/*": "./src/components/*"
+  },
+  "peerDependencies": {
+    "astro": "^7.4.4"
+  }
+}

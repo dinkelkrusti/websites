@@ -1,5 +1,6 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
+# One pipeline for all sites: checks → staging (GitHub Pages) + production (Hetzner).
 on:
   push:
     branches: [main]
@@ -7,73 +8,54 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages-${{ github.ref }}
+  group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # Every site under sites/ that goes to staging
+  SITES: "ex-nihilo cv"
+
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
+  checks:
+    uses: ./.github/workflows/checks.yml
 
-      - name: Runtime Setup
-        uses: pnpm/setup@v3
-        with:
-          version: 12
-          runtime: node@26
-          cache: true
-
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm format:read
-      - run: pnpm astro:check --minimumFailingSeverity warning
-
-  check-links:
+  # Staging: all sites in one Pages artifact, each under /websites/<site>/
+  staging-build:
+    needs: checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Link Checker
-        id: lychee
-        uses: lycheeverse/lychee-action@v2
-        with:
-          format: "markdown"
-          args: ". --verbose --offline"
+      - uses: ./.github/actions/setup
 
-  build:
-    needs: [lint, check-links]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Runtime Setup
-        uses: pnpm/setup@v3
-        with:
-          version: 12
-          runtime: node@26
-          cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build (staging)
-        run: pnpm build
+      - name: Build all sites (staging)
         env:
           PUBLIC_NOINDEX: "true"
+        run: |
+          for site in $SITES; do
+            BASE_PATH="/websites/$site" pnpm --filter "$site" build
+            mkdir -p "_site/$site"
+            cp -r "sites/$site/dist/." "_site/$site/"
+          done
+          {
+            echo '<!doctype html><html lang="en"><meta charset="utf-8">'
+            echo '<meta name="robots" content="noindex"><title>Staging</title><ul>'
+            for site in $SITES; do echo "<li><a href=\"$site/\">$site</a></li>"; done
+            echo '</ul></html>'
+          } > _site/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          path: _site
 
-  deploy:
-    needs: build
+  staging-deploy:
+    needs: staging-build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -81,3 +63,41 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  # Production: each site at its own domain, rsynced into its own web root
+  production:
+    needs: checks
+    runs-on: ubuntu-latest
+    environment: production
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - site: ex-nihilo
+            url: https://duo-ex-nihilo.de
+            dir: /var/www/exnihilo/
+          # Enable once the domain and the server's web root exist:
+          # - site: cv
+          #   url: https://cv.example.de
+          #   dir: /var/www/cv/
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+
+      - name: Build (production)
+        run: pnpm --filter "${{ matrix.site }}" build
+        env:
+          SITE_URL: ${{ matrix.url }}
+          BASE_PATH: /
+
+      - name: Install deploy key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HETZNER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.HETZNER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        run: >-
+          rsync -az --delete "sites/${{ matrix.site }}/dist/"
+          "deploy@${{ secrets.HETZNER_HOST }}:${{ matrix.dir }}"

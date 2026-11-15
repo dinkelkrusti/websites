@@ -1,65 +1,73 @@
-# ex nihilo — website
+# websites
 
-Official website of **ex nihilo**, a classical duo from Aachen:
-Violeta Kadesha (violin) and Jakob Grabenhorst (cello, voice).
+Static websites built with [Astro](https://docs.astro.build), sharing one
+toolchain, one CI/CD pipeline and one Hetzner server.
 
-- Production: <https://duo-ex-nihilo.de>
-- Staging (noindex): <https://dinkelkrusti.github.io/websites/>
+| Site                      | Folder             | Production                 | Staging (noindex)                                    |
+| :------------------------ | :----------------- | :------------------------- | :--------------------------------------------------- |
+| ex nihilo — classical duo | `sites/ex-nihilo/` | <https://duo-ex-nihilo.de> | <https://dinkelkrusti.github.io/websites/ex-nihilo/> |
+| Erik Wittemeier — CV      | `sites/cv/`        | not live yet               | <https://dinkelkrusti.github.io/websites/cv/>        |
 
-Static [Astro](https://docs.astro.build) site, German and English, zero
-client JS, self-hosted fonts, no cookies and no third-party requests
-before the YouTube consent click.
+All sites follow the same rules: German and English, zero client JS beyond
+what a feature needs, self-hosted fonts, no cookies, no tracking, and no
+third-party requests without consent. Impressum and Datenschutz are German.
+
+## Layout
+
+```text
+packages/core/     shared code, imported as @websites/core/…
+  src/base.ts        base-path helpers (staging sub-path vs. domain root)
+  src/i18n.ts        languages, translator and localized routing factories
+  src/content.ts     zod helpers for bilingual content
+  src/styles/        base.css: reset, focus, skip link, motion, print
+  src/components/    Document (HTML shell), SeoHead, JsonLd,
+                     legal/Impressum, legal/LegalArticle, legal/privacy/*
+sites/<site>/      one Astro project per site (pages, content, tokens.css)
+.github/           composite setup action, checks + deploy workflows
+```
+
+Each site defines its own design tokens in `src/styles/tokens.css`; the
+semantic variables the shared base styles expect are listed at the top of
+`packages/core/src/styles/base.css`.
 
 ## Commands
 
-| Command            | Action                                 |
-| :----------------- | :------------------------------------- |
-| `pnpm install`     | Install dependencies (Node ≥ 22.23.4)  |
-| `pnpm dev`         | Dev server at `localhost:4321`         |
-| `pnpm build`       | Build to `./dist/`                     |
-| `pnpm preview`     | Preview the build locally              |
-| `pnpm lint`        | ESLint (incl. jsx-a11y)                |
-| `pnpm format:read` | Prettier check (`format:write` to fix) |
-| `pnpm astro:check` | Type and template checks               |
+Run from the repository root.
 
-## Structure
+| Command              | Action                                              |
+| :------------------- | :-------------------------------------------------- |
+| `pnpm install`       | Install dependencies for all sites (Node ≥ 22.23.4) |
+| `pnpm dev:ex-nihilo` | Dev server for ex nihilo at `localhost:4321`        |
+| `pnpm dev:cv`        | Dev server for the CV site at `localhost:4321`      |
+| `pnpm build`         | Build every site into `sites/<site>/dist/`          |
+| `pnpm lint`          | ESLint (incl. jsx-a11y) over the whole repo         |
+| `pnpm format:read`   | Prettier check (`format:write` to fix)              |
+| `pnpm astro:check`   | Type and template checks for every site             |
 
-```text
-src/
-├── pages/de/, pages/en/   # thin route files per language
-├── components/pages/      # shared page components (Home, Duo, Media, …)
-├── components/            # Header, Footer, VideoEmbed, JsonLd, …
-├── content/               # concerts (YAML), photos, press quotes
-├── i18n/                  # UI strings + helpers
-├── layouts/BaseLayout.astro
-└── styles/tokens.css      # design tokens, print styles
-```
-
-Impressum, Datenschutz and the press kit (`/de/presse-kit/`, noindex)
-exist in German only.
+For a single site: `pnpm --filter cv build`, `pnpm --filter cv preview`, …
 
 ## Content
 
-- **Concerts:** add `src/content/concerts/YYYY-MM-DD-city.yaml` with
-  `date`, `venue`, `city`, `program.de`, `program.en`, optional `link`.
-- **Photos:** a `.md` file in `src/content/photos/` pointing to an image
-  in `src/assets/`. `alt` is required — the build fails without it.
-- **Press quotes:** `src/content/quotes/*.md` with `quote`, `source`,
-  optional `url`. Keep the original wording.
+- **ex nihilo:** concerts, photos and press quotes in
+  `sites/ex-nihilo/src/content/`.
+- **CV:** personal data in `sites/cv/src/data/profile.ts`; experience,
+  education, projects (one YAML file each) and `skills.yaml` in
+  `sites/cv/src/content/`. Schemas: `sites/cv/src/content.config.ts`.
 
-## Deployment
+## CI/CD
 
-On push to `main`:
+- `checks.yml` — on pull requests and before every deploy: format, lint,
+  `astro check`, build, offline link check.
+- `deploy.yml` — on push to `main`, after the checks:
+  - **staging:** every site in `SITES` is built under `/websites/<site>/`
+    and published to GitHub Pages as one artifact;
+  - **production:** each site in the matrix is built for its domain and
+    rsynced to its own web root on the Hetzner server.
+- `check-links.yml` — daily link check, opens an issue on failure.
 
-- `deploy.yml` — lint, format, type and link checks, then a noindex
-  staging build to GitHub Pages.
-- `hetzner.yml` — the same checks, then a production build
-  (`SITE_URL=https://duo-ex-nihilo.de`, `BASE_PATH=/`) rsynced to Hetzner.
+Adding a site to the server: see [docs/hosting.md](docs/hosting.md).
 
-Pull requests run `pr-checks.yml`; `check-links.yml` runs daily and opens
-an issue on broken links.
+## Release checks (ex nihilo)
 
-## Release checks
-
-- [Performance budget](docs/performance-budget.md)
-- [QA checklist](docs/qa-checklist.md)
+- [Performance budget](sites/ex-nihilo/docs/performance-budget.md)
+- [QA checklist](sites/ex-nihilo/docs/qa-checklist.md)

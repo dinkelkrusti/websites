@@ -1,0 +1,16 @@
+name: Setup
+description: pnpm + Node runtime with cache, then a frozen install of the whole workspace.
+
+runs:
+  using: composite
+  steps:
+    - name: Runtime Setup
+      uses: pnpm/setup@v3
+      with:
+        version: 12
+        runtime: node@26
+        cache: true
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile

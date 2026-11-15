@@ -6,7 +6,7 @@ import astro from "eslint-plugin-astro";
 import prettierConfig from "eslint-config-prettier";
 
 export default defineConfig(
-  { ignores: ["dist/", ".astro/"] },
+  { ignores: ["**/dist/", "**/.astro/"] },
 
   {
     files: ["**/*.{js,mjs,cjs,ts,astro}"],
@@ -25,7 +25,7 @@ export default defineConfig(
     },
   },
   {
-    files: ["astro.config.mjs"],
+    files: ["**/astro.config.mjs"],
     languageOptions: { globals: { process: "readonly" } },
   },
   prettierConfig,

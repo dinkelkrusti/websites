@@ -1,0 +1,37 @@
+---
+/**
+ * The HTML shell every page shares: <head> with SEO tags, a skip link,
+ * and slots for the site's own header and footer.
+ *
+ *   <Document {...seo} skipLabel="Zum Inhalt springen">
+ *     <Header slot="header" />
+ *     page content
+ *     <Footer slot="footer" />
+ *   </Document>
+ */
+import type { ComponentProps } from "astro/types";
+import SeoHead from "./SeoHead.astro";
+
+type Props = ComponentProps<typeof SeoHead> & {
+  /** Visible text of the skip link, in the page language */
+  skipLabel: string;
+};
+
+const { skipLabel, ...seo } = Astro.props;
+---
+
+<!doctype html>
+<html lang={seo.lang}>
+  <head>
+    <SeoHead {...seo} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{skipLabel}</a>
+    <slot name="header" />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>

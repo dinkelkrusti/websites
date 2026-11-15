@@ -1,12 +1,24 @@
+## Repository
+
+pnpm workspace: one Astro project per site in `sites/`, shared code in
+`packages/core` (imported as `@websites/core/…`). Read `README.md` first.
+
+Rules for every site:
+
+- German and English; Impressum and Datenschutz in German only.
+- No cookies, no tracking, no third-party requests without consent
+  (§ 25 TDDDG, DSGVO). Fonts are self-hosted.
+- Ask before adding a dependency, and only add one if it is clearly worth it.
+
 ## Development
 
-When starting the dev server, use background mode:
+Start a site's dev server in background mode, from the site folder:
 
 ```
-astro dev --background
+cd sites/cv && pnpm astro dev --background
 ```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+Manage it with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
 ## Documentation
 

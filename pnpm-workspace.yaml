@@ -1,0 +1,4 @@
+# Each site is its own Astro project; packages/ holds code shared between them.
+packages:
+  - "sites/*"
+  - "packages/*"

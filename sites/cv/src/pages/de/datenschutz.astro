@@ -1,0 +1,34 @@
+---
+import LegalArticle from "@websites/core/components/legal/LegalArticle.astro";
+import Controller from "@websites/core/components/legal/privacy/Controller.astro";
+import EmailContact from "@websites/core/components/legal/privacy/EmailContact.astro";
+import ExternalLinks from "@websites/core/components/legal/privacy/ExternalLinks.astro";
+import HetznerHosting from "@websites/core/components/legal/privacy/HetznerHosting.astro";
+import NoTracking from "@websites/core/components/legal/privacy/NoTracking.astro";
+import Rights from "@websites/core/components/legal/privacy/Rights.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { profile, serverLogs } from "../../data/profile";
+---
+
+<BaseLayout
+  lang="de"
+  title={`Datenschutzerklärung — ${profile.name}`}
+  description="Welche Daten diese Website verarbeitet — und welche nicht."
+  hideAlternates
+>
+  <LegalArticle title="Datenschutzerklärung">
+    <Controller
+      name={profile.name}
+      address={profile.address}
+      email={profile.email}
+    />
+    <HetznerHosting
+      logRetentionDays={serverLogs.retentionDays}
+      ipShortened={serverLogs.ipShortened}
+    />
+    <NoTracking />
+    <EmailContact />
+    <ExternalLinks />
+    <Rights />
+  </LegalArticle>
+</BaseLayout>

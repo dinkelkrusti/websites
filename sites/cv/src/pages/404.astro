@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "@websites/core/base";
+---
+
+<BaseLayout
+  lang="de"
+  title="404 — Erik Wittemeier"
+  description="Seite nicht gefunden."
+  hideAlternates
+  noindex
+>
+  <section class="not-found">
+    <h1>Seite nicht gefunden · Page not found</h1>
+    <p>
+      <a href={withBase("/de/")}>Deutsch</a> ·{" "}
+      <a href={withBase("/en/")}>English</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-section);
+    display: grid;
+    gap: var(--space-4);
+    justify-items: center;
+    text-align: center;
+  }
+</style>

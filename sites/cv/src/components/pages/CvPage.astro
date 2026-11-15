@@ -1,0 +1,191 @@
+---
+/**
+ * The CV as one page. Prints cleanly to PDF (header, footer and the
+ * print hint are hidden; a contact line appears instead).
+ */
+import TechList from "../TechList.astro";
+import { profile } from "../../data/profile";
+import {
+  formatPeriod,
+  getEducation,
+  getExperience,
+  getSkills,
+  type PartialDate,
+} from "../../lib/cv";
+import { useTranslations, type Lang } from "../../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const [experience, education, skills] = await Promise.all([
+  getExperience(),
+  getEducation(),
+  getSkills(),
+]);
+const period = (start: PartialDate, end?: PartialDate) =>
+  formatPeriod(start, end, lang, t("cv.present"));
+---
+
+<div class="cv">
+  <h1>{lang === "de" ? "Lebenslauf" : "Curriculum Vitae"}</h1>
+  <p class="print-only">
+    {profile.name} · {profile.role[lang]} · {profile.location[lang]} ·
+    {profile.email}
+  </p>
+  <p class="print-hint">{t("cv.printHint")}</p>
+
+  <section aria-labelledby="experience">
+    <h2 id="experience">{t("cv.experience")}</h2>
+    <ol class="entries">
+      {
+        experience.map(({ data }) => (
+          <li class="entry">
+            <p class="period">{period(data.start, data.end)}</p>
+            <div>
+              <h3>{data.role[lang]}</h3>
+              <p class="where">
+                {data.organization} · {data.location}
+              </p>
+              {data.summary && <p>{data.summary[lang]}</p>}
+              {data.highlights && (
+                <ul>
+                  {data.highlights[lang].map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              )}
+              <TechList items={data.tech} />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section aria-labelledby="education">
+    <h2 id="education">{t("cv.education")}</h2>
+    <ol class="entries">
+      {
+        education.map(({ data }) => (
+          <li class="entry">
+            <p class="period">{period(data.start, data.end)}</p>
+            <div>
+              <h3>{data.degree[lang]}</h3>
+              <p class="where">
+                {data.institution} · {data.location}
+              </p>
+              {data.details && <p>{data.details[lang]}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section aria-labelledby="skills">
+    <h2 id="skills">{t("cv.skills")}</h2>
+    <dl class="skills">
+      {
+        skills.map(({ data }) => (
+          <>
+            <dt>{data.label[lang]}</dt>
+            <dd>
+              {data.items
+                .map((item) => (typeof item === "string" ? item : item[lang]))
+                .join(", ")}
+            </dd>
+          </>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section aria-labelledby="interests">
+    <h2 id="interests">{t("cv.interests")}</h2>
+    <ul>
+      {profile.interests[lang].map((interest) => <li>{interest}</li>)}
+    </ul>
+  </section>
+</div>
+
+<style>
+  .cv {
+    padding-block: var(--space-section);
+    max-width: 52rem;
+  }
+  section {
+    margin-block-start: var(--space-6);
+  }
+  .entries {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+  .entry {
+    display: grid;
+    gap: var(--space-1) var(--space-5);
+  }
+  @media (min-width: 48rem) {
+    .entry {
+      grid-template-columns: 11rem 1fr;
+    }
+  }
+  .entry h3 {
+    margin-block-end: var(--space-1);
+  }
+  .entry ul {
+    margin-block-end: var(--space-3);
+  }
+  .period,
+  .where {
+    color: var(--color-muted);
+    margin-block-end: var(--space-2);
+  }
+  .period {
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    padding-block-start: 0.3em;
+  }
+  .skills {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: var(--space-2) var(--space-5);
+  }
+  .skills dt {
+    font-weight: 600;
+  }
+  .skills dd {
+    margin: 0;
+  }
+  .print-hint {
+    color: var(--color-muted);
+    font-size: var(--fs-small);
+  }
+  .print-only {
+    display: none;
+  }
+
+  @media print {
+    .cv {
+      padding-block: 0;
+    }
+    .print-hint {
+      display: none;
+    }
+    .print-only {
+      display: block;
+    }
+    .entry {
+      grid-template-columns: 9rem 1fr;
+      break-inside: avoid;
+    }
+    .period,
+    .where,
+    .print-only {
+      color: #333;
+    }
+  }
+</style>

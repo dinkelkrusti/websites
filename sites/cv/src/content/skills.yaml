@@ -1,0 +1,33 @@
+# Skill groups in display order
+- id: programming-languages
+  order: 1
+  label:
+    de: Programmiersprachen
+    en: Programming languages
+  items: [Kotlin/Java, TypeScript, HTML/CSS, SQL, HCL]
+- id: technologies
+  order: 2
+  label:
+    de: Technologien
+    en: Technologies
+  items:
+    [
+      Spring Boot,
+      Angular,
+      Hibernate,
+      Postgres,
+      Docker,
+      Kubernetes,
+      Terraform,
+      AWS,
+      Git,
+      CI/CD,
+    ]
+- id: spoken-languages
+  order: 3
+  label:
+    de: Sprachen
+    en: Languages
+  items:
+    - { de: Deutsch, en: German }
+    - { de: Englisch, en: English }

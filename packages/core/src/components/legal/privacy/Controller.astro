@@ -1,0 +1,14 @@
+---
+/** Art. 13 Abs. 1 lit. a DSGVO: who is responsible for the processing. */
+interface Props {
+  name: string;
+  address: string;
+  email: string;
+}
+const { name, address, email } = Astro.props;
+---
+
+<h2>Verantwortlicher</h2>
+<p>
+  {name}, {address}, E-Mail: <a href={`mailto:${email}`}>{email}</a>
+</p>

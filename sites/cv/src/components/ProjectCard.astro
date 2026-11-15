@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TechList from "./TechList.astro";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  lang: Lang;
+}
+const { project, lang } = Astro.props;
+const { title, year, summary, tech, url, repo } = project.data;
+const t = useTranslations(lang);
+---
+
+<article class="project">
+  <p class="year">{year}</p>
+  <h3>{title}</h3>
+  <p>{summary[lang]}</p>
+  <TechList items={tech} />
+  {
+    (url || repo) && (
+      <p class="links">
+        {url && <a href={url}>{t("projects.live")}</a>}
+        {repo && <a href={repo}>{t("projects.code")}</a>}
+      </p>
+    )
+  }
+</article>
+
+<style>
+  .project {
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+  }
+  .project > * {
+    margin: 0;
+  }
+  .year {
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    color: var(--color-muted);
+  }
+  .links {
+    display: flex;
+    gap: var(--space-4);
+  }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+</style>

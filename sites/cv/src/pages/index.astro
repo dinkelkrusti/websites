@@ -1,0 +1,39 @@
+---
+/** Language picker at the root: redirects by browser language, links as fallback. */
+import "../styles/tokens.css";
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Erik Wittemeier</title>
+    <meta name="robots" content="noindex" />
+    <style>
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100svh;
+      }
+      ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+      }
+      a {
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li><a href="de/">Deutsch</a></li>
+      <li><a href="en/">English</a></li>
+    </ul>
+    <script>
+      const lang = navigator.language?.toLowerCase() ?? "de";
+      location.replace(lang.startsWith("de") ? "de/" : "en/");
+    </script>
+  </body>
+</html>

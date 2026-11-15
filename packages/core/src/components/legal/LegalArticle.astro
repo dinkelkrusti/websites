@@ -1,0 +1,23 @@
+---
+/** Readable frame for Impressum and Datenschutz, including print. */
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<article class="legal">
+  <h1>{title}</h1>
+  <slot />
+</article>
+
+<style>
+  .legal {
+    padding-block: var(--space-section);
+    max-width: var(--measure);
+  }
+  .legal :global(h2) {
+    font-size: var(--fs-h3);
+    margin-block-start: var(--space-6);
+  }
+</style>

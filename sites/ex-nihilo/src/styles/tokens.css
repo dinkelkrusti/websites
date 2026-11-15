@@ -1,0 +1,54 @@
+/* ex nihilo design tokens. Shared base styles live in @websites/core. */
+@import "@websites/core/styles/base.css";
+
+:root {
+  /* palette */
+  --color-void: #131110;
+  --color-surface: #1c1916;
+  --color-surface-gold: #282319;
+  --color-ink: #f3eee3;
+  --color-text-soft: #c6beac;
+  --color-gold: #c9a24f;
+  --color-gold-bright: #e3c87e;
+
+  /* semantic names used by the shared base styles */
+  --color-bg: var(--color-void);
+  --color-text: var(--color-ink);
+  --color-muted: var(--color-text-soft);
+  --color-accent: var(--color-gold);
+  --color-accent-strong: var(--color-gold-bright);
+  --color-on-accent: var(--color-void);
+
+  /* fluid type */
+  --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --fs-h1: clamp(2.25rem, 1.6rem + 3.2vw, 4rem);
+  --fs-h2: clamp(1.75rem, 1.35rem + 2vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --fs-small: 0.875rem;
+
+  /* fonts */
+  --font-serif: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-heading: var(--font-serif);
+  --font-body: var(--font-sans);
+
+  /* spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-section: clamp(4rem, 8vw, 8rem);
+
+  /* misc */
+  --border-hairline: 1px solid
+    color-mix(in srgb, var(--color-gold) 55%, transparent);
+  --radius-md: 8px;
+  --transition: 180ms ease-out;
+  --measure: 70ch;
+}
+
+html {
+  color-scheme: dark;
+}

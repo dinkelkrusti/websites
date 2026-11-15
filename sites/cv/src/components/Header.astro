@@ -1,0 +1,102 @@
+---
+/** Name, three nav links and the language switch. Wraps on small screens — no JS. */
+import { otherLang } from "@websites/core/i18n";
+import { profile } from "../data/profile";
+import { useTranslations, type Lang, type UiKey } from "../i18n/ui";
+import {
+  localizedPath,
+  pageFromPath,
+  pages,
+  switchLangPath,
+} from "../i18n/utils";
+
+interface Props {
+  lang: Lang;
+  pathname: string;
+}
+const { lang, pathname } = Astro.props;
+const t = useTranslations(lang);
+const current = pageFromPath(pathname, lang);
+const other = otherLang(lang);
+const navKey = (page: string) => `nav.${page}` as UiKey;
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="name" href={localizedPath(lang, "home")}>{profile.name}</a>
+    <nav aria-label={t("nav.main")}>
+      <ul>
+        {
+          pages.map((page) => (
+            <li>
+              <a
+                href={localizedPath(lang, page)}
+                aria-current={current === page ? "page" : undefined}
+              >
+                {t(navKey(page))}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a
+            class="lang-switch"
+            href={switchLangPath(lang, current)}
+            hreflang={other}
+            lang={other}
+          >
+            {other.toUpperCase()}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-block-end: var(--border-hairline);
+  }
+  .header-inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: var(--space-2) var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
+  }
+  .name {
+    font-weight: 650;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-4);
+    list-style: none;
+    padding: 0;
+  }
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px; /* touch target */
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+  nav a:hover,
+  nav a[aria-current="page"] {
+    color: var(--color-text);
+  }
+  nav a[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 0.4em;
+  }
+  .lang-switch {
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+  }
+</style>

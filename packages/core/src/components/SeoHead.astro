@@ -1,0 +1,88 @@
+---
+/**
+ * Everything in <head> that search engines and link previews read:
+ * title, description, canonical URL, language alternates, Open Graph.
+ */
+import { stripBase, withBase } from "../base";
+import { otherLang, type Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** og:site_name, e.g. "ex nihilo" */
+  siteName: string;
+  /** Root-relative path of a 1200×630 share image, e.g. "/og.jpg" */
+  ogImage?: string;
+  /** Root-relative path of a 180×180 PNG, e.g. "/apple-touch-icon.png" */
+  touchIcon?: string;
+  /** Legal pages exist in German only, so they have no language alternate */
+  hideAlternates?: boolean;
+  noindex?: boolean;
+}
+
+const {
+  lang,
+  title,
+  description,
+  siteName,
+  ogImage,
+  touchIcon,
+  hideAlternates,
+  noindex,
+} = Astro.props;
+
+const other = otherLang(lang);
+const site = Astro.site ?? new URL("http://localhost:4321");
+const pageUrl = new URL(Astro.url.pathname, site);
+const alternatePath = withBase(
+  stripBase(Astro.url.pathname).replace(/^\/(de|en)(?=\/|$)/, `/${other}`),
+);
+// Staging builds set PUBLIC_NOINDEX so previews never compete with production.
+const robotsNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === "true";
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{robotsNoindex && <meta name="robots" content="noindex" />}
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={pageUrl} />
+<link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+{touchIcon && <link rel="apple-touch-icon" href={withBase(touchIcon)} />}
+{
+  !hideAlternates && (
+    <>
+      <link rel="alternate" hreflang={lang} href={pageUrl} />
+      <link
+        rel="alternate"
+        hreflang={other}
+        href={new URL(alternatePath, site)}
+      />
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={new URL(withBase("/"), site)}
+      />
+    </>
+  )
+}
+<meta name="generator" content={Astro.generator} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={pageUrl.href} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={lang === "de" ? "de_DE" : "en_US"} />
+{
+  ogImage && (
+    <meta
+      property="og:image"
+      content={new URL(withBase(ogImage), site).href}
+    />
+  )
+}
+<meta
+  name="twitter:card"
+  content={ogImage ? "summary_large_image" : "summary"}
+/>
