@@ -15,7 +15,6 @@
     "format:write": "prettier --write ."
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.12",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.13.0",
     "eslint-config-prettier": "^10.1.8",
