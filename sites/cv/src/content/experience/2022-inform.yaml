@@ -1,0 +1,52 @@
+role:
+  de: Softwareentwickler
+  en: Software Engineer
+organization: INFORM – Intermodal Terminal Operation Systems
+location: Aachen
+start: 2022-05
+highlights:
+  de:
+    - >-
+      Ein geschäftskritisches Managementsystem für intermodale Containerterminals
+      (tausende Containerbewegungen pro Tag) im sechsköpfigen Team
+      stabilisiert und weiterentwickelt, im Backend (Kotlin, Spring Boot) und
+      im Frontend (Angular): Bug-Tickets nach dem Go-live sanken von mehreren
+      pro Tag auf eines alle paar Monate.
+    - >-
+      Neue Features und Optimierungen in einer verteilten
+      Microservice-Architektur entwickelt und ausgerollt, mit Fokus auf hohe
+      Verfügbarkeit und Performance für komplexe Logistikprozesse.
+    - >-
+      Die Migration zentraler Systemkomponenten zu AWS prototypisch umgesetzt:
+      containerisierte Lösungen (Docker/Kubernetes) und CI/CD-Pipelines für
+      skalierbares, cloud-natives Deployment entworfen und implementiert.
+    - >-
+      Bestehende Systemmodule zu wiederverwendbaren Produktkomponenten
+      verallgemeinert – für schnelleres Onboarding neuer Kunden und kürzere
+      Time-to-Market bei weiteren Terminalbetreibern.
+    - >-
+      Kolleg:innen in Kotlin, Spring Boot, Angular und Cloud-Technologien
+      eingearbeitet und begleitet.
+  en:
+    - >-
+      Revitalized and stabilized a mission-critical intermodal container
+      terminal management system (thousands of container moves daily) in a
+      6-person team, across backend (Kotlin, Spring Boot) and frontend
+      (Angular): post-go-live bug tickets dropped from several a day to one
+      every few months.
+    - >-
+      Developed and deployed new features and optimizations within a
+      distributed microservice architecture, ensuring high availability and
+      performance for complex logistics operations.
+    - >-
+      Prototyped the cloud migration of core system components to AWS,
+      designing and implementing containerized (Docker/Kubernetes) solutions
+      and CI/CD pipelines for scalable, cloud-native deployment.
+    - >-
+      Extended and generalized existing system modules into reusable product
+      components, enabling faster onboarding of new customers and shorter
+      time-to-market for additional terminal operators.
+    - >-
+      Mentored and onboarded colleagues to Kotlin, Spring Boot, Angular and
+      cloud technologies.
+tech: [Kotlin, Spring Boot, Angular, AWS, Docker, Kubernetes]

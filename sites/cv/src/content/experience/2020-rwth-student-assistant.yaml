@@ -1,0 +1,32 @@
+role:
+  de: Studentische Hilfskraft
+  en: Student Assistant
+organization: RWTH Aachen – Computational Soft Matter Physics
+location: Aachen
+start: 2020
+end: 2021
+highlights:
+  de:
+    - >-
+      Großskalige molekulare Polymersimulationen auf
+      Hochleistungsrechnern entwickelt und durchgeführt, mit fortgeschrittenen
+      Parallelisierungstechniken.
+    - >-
+      Versionskontrolle (GitLab) in der Arbeitsgruppe eingeführt – für bessere
+      Zusammenarbeit, Reproduzierbarkeit und Codeverwaltung.
+    - >-
+      Ein Python-CLI-Tool entworfen und umgesetzt, das die Erstellung von
+      Simulationsmodellen und den Datenaustausch zwischen verschiedenen
+      Simulationsprogrammen automatisiert.
+  en:
+    - >-
+      Developed and ran large-scale molecular polymer simulations on
+      high-performance computing clusters, using advanced parallelization
+      techniques.
+    - >-
+      Introduced version control (GitLab) to the research group, improving
+      collaboration, reproducibility and code management.
+    - >-
+      Designed and built a Python CLI tool that automates simulation model
+      creation and data exchange between different simulation software.
+tech: [Python, HPC, GitLab]
