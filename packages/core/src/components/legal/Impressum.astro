@@ -31,34 +31,28 @@ const { provider, address, email, phone, representatives, contentResponsible } =
     <dd>{provider}</dd>
     <dt>Anschrift</dt>
     <dd>{address}</dd>
-    {
-      representatives && (
-        <>
-          <dt>Vertretungsberechtigt</dt>
-          <dd>{representatives}</dd>
-        </>
-      )
-    }
+    {representatives && (
+      <>
+        <dt>Vertretungsberechtigt</dt>
+        <dd>{representatives}</dd>
+      </>
+    )}
     <dt>E-Mail</dt>
     <dd>
       <a href={`mailto:${email}`}>{email}</a>
     </dd>
-    {
-      phone && (
-        <>
-          <dt>Telefon</dt>
-          <dd>{phone}</dd>
-        </>
-      )
-    }
-    {
-      contentResponsible && (
-        <>
-          <dt>Verantwortlich für den Inhalt i. S. d. § 18 Abs. 2 MStV</dt>
-          <dd>{contentResponsible}</dd>
-        </>
-      )
-    }
+    {phone && (
+      <>
+        <dt>Telefon</dt>
+        <dd>{phone}</dd>
+      </>
+    )}
+    {contentResponsible && (
+      <>
+        <dt>Verantwortlich für den Inhalt i. S. d. § 18 Abs. 2 MStV</dt>
+        <dd>{contentResponsible}</dd>
+      </>
+    )}
   </dl>
 </section>
 

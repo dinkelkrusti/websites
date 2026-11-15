@@ -17,14 +17,12 @@ const t = useTranslations(lang);
   <h3>{title}</h3>
   <p>{summary[lang]}</p>
   <TechList items={tech} />
-  {
-    (url || repo) && (
-      <p class="links">
-        {url && <a href={url}>{t("projects.live")}</a>}
-        {repo && <a href={repo}>{t("projects.code")}</a>}
-      </p>
-    )
-  }
+  {(url || repo) && (
+    <p class="links">
+      {url && <a href={url}>{t("projects.live")}</a>}
+      {repo && <a href={repo}>{t("projects.code")}</a>}
+    </p>
+  )}
 </article>
 
 <style>

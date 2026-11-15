@@ -39,73 +39,69 @@ const period = (start: PartialDate, end?: PartialDate) =>
   <section aria-labelledby="experience">
     <h2 id="experience">{t("cv.experience")}</h2>
     <ol class="entries">
-      {
-        experience.map(({ data }) => (
-          <li class="entry">
-            <p class="period">{period(data.start, data.end)}</p>
-            <div>
-              <h3>{data.role[lang]}</h3>
-              <p class="where">
-                {data.organization} · {data.location}
-              </p>
-              {data.summary && <p>{data.summary[lang]}</p>}
-              {data.highlights && (
-                <ul>
-                  {data.highlights[lang].map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              )}
-              <TechList items={data.tech} />
-            </div>
-          </li>
-        ))
-      }
+      {experience.map(({ data }) => (
+        <li class="entry">
+          <p class="period">{period(data.start, data.end)}</p>
+          <div>
+            <h3>{data.role[lang]}</h3>
+            <p class="where">
+              {data.organization} · {data.location}
+            </p>
+            {data.summary && <p>{data.summary[lang]}</p>}
+            {data.highlights && (
+              <ul>
+                {data.highlights[lang].map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+            <TechList items={data.tech} />
+          </div>
+        </li>
+      ))}
     </ol>
   </section>
 
   <section aria-labelledby="education">
     <h2 id="education">{t("cv.education")}</h2>
     <ol class="entries">
-      {
-        education.map(({ data }) => (
-          <li class="entry">
-            <p class="period">{period(data.start, data.end)}</p>
-            <div>
-              <h3>{data.degree[lang]}</h3>
-              <p class="where">
-                {data.institution} · {data.location}
-              </p>
-              {data.details && <p>{data.details[lang]}</p>}
-            </div>
-          </li>
-        ))
-      }
+      {education.map(({ data }) => (
+        <li class="entry">
+          <p class="period">{period(data.start, data.end)}</p>
+          <div>
+            <h3>{data.degree[lang]}</h3>
+            <p class="where">
+              {data.institution} · {data.location}
+            </p>
+            {data.details && <p>{data.details[lang]}</p>}
+          </div>
+        </li>
+      ))}
     </ol>
   </section>
 
   <section aria-labelledby="skills">
     <h2 id="skills">{t("cv.skills")}</h2>
     <dl class="skills">
-      {
-        skills.map(({ data }) => (
-          <>
-            <dt>{data.label[lang]}</dt>
-            <dd>
-              {data.items
-                .map((item) => (typeof item === "string" ? item : item[lang]))
-                .join(", ")}
-            </dd>
-          </>
-        ))
-      }
+      {skills.map(({ data }) => (
+        <>
+          <dt>{data.label[lang]}</dt>
+          <dd>
+            {data.items
+              .map((item) => (typeof item === "string" ? item : item[lang]))
+              .join(", ")}
+          </dd>
+        </>
+      ))}
     </dl>
   </section>
 
   <section aria-labelledby="interests">
     <h2 id="interests">{t("cv.interests")}</h2>
     <ul>
-      {profile.interests[lang].map((interest) => <li>{interest}</li>)}
+      {profile.interests[lang].map((interest) => (
+        <li>{interest}</li>
+      ))}
     </ul>
   </section>
 </div>

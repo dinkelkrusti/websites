@@ -5,15 +5,13 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-{
-  items.length > 0 && (
-    <ul class="tech">
-      {items.map((item) => (
-        <li>{item}</li>
-      ))}
-    </ul>
-  )
-}
+{items.length > 0 && (
+  <ul class="tech">
+    {items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+)}
 
 <style>
   .tech {

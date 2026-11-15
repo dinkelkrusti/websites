@@ -50,23 +50,21 @@ const robotsNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === "true";
 <link rel="canonical" href={pageUrl} />
 <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
 {touchIcon && <link rel="apple-touch-icon" href={withBase(touchIcon)} />}
-{
-  !hideAlternates && (
-    <>
-      <link rel="alternate" hreflang={lang} href={pageUrl} />
-      <link
-        rel="alternate"
-        hreflang={other}
-        href={new URL(alternatePath, site)}
-      />
-      <link
-        rel="alternate"
-        hreflang="x-default"
-        href={new URL(withBase("/"), site)}
-      />
-    </>
-  )
-}
+{!hideAlternates && (
+  <>
+    <link rel="alternate" hreflang={lang} href={pageUrl} />
+    <link
+      rel="alternate"
+      hreflang={other}
+      href={new URL(alternatePath, site)}
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(withBase("/"), site)}
+    />
+  </>
+)}
 <meta name="generator" content={Astro.generator} />
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
@@ -74,14 +72,9 @@ const robotsNoindex = noindex || import.meta.env.PUBLIC_NOINDEX === "true";
 <meta property="og:url" content={pageUrl.href} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:locale" content={lang === "de" ? "de_DE" : "en_US"} />
-{
-  ogImage && (
-    <meta
-      property="og:image"
-      content={new URL(withBase(ogImage), site).href}
-    />
-  )
-}
+{ogImage && (
+  <meta property="og:image" content={new URL(withBase(ogImage), site).href} />
+)}
 <meta
   name="twitter:card"
   content={ogImage ? "summary_large_image" : "summary"}

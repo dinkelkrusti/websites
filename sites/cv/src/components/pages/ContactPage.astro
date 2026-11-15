@@ -20,7 +20,8 @@ const copy = {
   },
   en: {
     title: "Contact",
-    intro: "For job offers, projects or questions, email is the best way to reach me.",
+    intro:
+      "For job offers, projects or questions, email is the best way to reach me.",
     button: "Send an email",
     subject: "Enquiry via your website",
     elsewhere: "Profiles",
@@ -41,13 +42,11 @@ const mailto = `mailto:${profile.email}?subject=${encodeURIComponent(copy.subjec
 
   <h2>{copy.elsewhere}</h2>
   <ul>
-    {
-      profile.links.map((link) => (
-        <li>
-          <a href={link.url}>{link.label}</a>
-        </li>
-      ))
-    }
+    {profile.links.map((link) => (
+      <li>
+        <a href={link.url}>{link.label}</a>
+      </li>
+    ))}
   </ul>
 </div>
 

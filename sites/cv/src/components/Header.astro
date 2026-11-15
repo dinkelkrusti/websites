@@ -23,21 +23,21 @@ const navKey = (page: string) => `nav.${page}` as UiKey;
 
 <header class="site-header">
   <div class="header-inner">
-    <a class="name" href={localizedPath(lang, "home")}>{profile.name}</a>
+    <a class="name" href={localizedPath(lang, "home")}>
+      {profile.name}
+    </a>
     <nav aria-label={t("nav.main")}>
       <ul>
-        {
-          pages.map((page) => (
-            <li>
-              <a
-                href={localizedPath(lang, page)}
-                aria-current={current === page ? "page" : undefined}
-              >
-                {t(navKey(page))}
-              </a>
-            </li>
-          ))
-        }
+        {pages.map((page) => (
+          <li>
+            <a
+              href={localizedPath(lang, page)}
+              aria-current={current === page ? "page" : undefined}
+            >
+              {t(navKey(page))}
+            </a>
+          </li>
+        ))}
         <li>
           <a
             class="lang-switch"

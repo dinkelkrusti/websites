@@ -45,21 +45,19 @@ const person = {
   </div>
 </section>
 
-{
-  featured.length > 0 && (
-    <section aria-labelledby="featured">
-      <h2 id="featured">{copy.featured}</h2>
-      <div class="grid">
-        {featured.map((project) => (
-          <ProjectCard project={project} lang={lang} />
-        ))}
-      </div>
-      <p>
-        <a href={localizedPath(lang, "projects")}>{t("projects.all")} →</a>
-      </p>
-    </section>
-  )
-}
+{featured.length > 0 && (
+  <section aria-labelledby="featured">
+    <h2 id="featured">{copy.featured}</h2>
+    <div class="grid">
+      {featured.map((project) => (
+        <ProjectCard project={project} lang={lang} />
+      ))}
+    </div>
+    <p>
+      <a href={localizedPath(lang, "projects")}>{t("projects.all")} →</a>
+    </p>
+  </section>
+)}
 
 <style>
   .hero {

@@ -27,7 +27,9 @@ const { skipLabel, ...seo } = Astro.props;
     <slot name="head" />
   </head>
   <body>
-    <a class="skip-link" href="#main">{skipLabel}</a>
+    <a class="skip-link" href="#main">
+      {skipLabel}
+    </a>
     <slot name="header" />
     <main id="main" tabindex="-1">
       <slot />
