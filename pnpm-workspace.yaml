@@ -2,3 +2,10 @@
 packages:
   - "sites/*"
   - "packages/*"
+
+overrides:
+  # @astrojs/check → @napi-rs/wasm-runtime accepts @emnapi/runtime 1.x or 2.x
+  # pre-releases. Without a 1.x copy in the importer, pnpm picks the 2.0 beta,
+  # which is incompatible with @emnapi/core 1.x and makes `astro check` fail
+  # to load. Keep runtime on the same major as core.
+  "@emnapi/runtime": "^1.11.3"
